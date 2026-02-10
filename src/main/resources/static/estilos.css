@@ -1,0 +1,98 @@
+body {
+  background:#ffffff;
+  font-family: 'Arial';
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+nav{
+    width: 100%;
+    margin-top: 0;
+    background-color: aqua;
+    padding: 15px 30px;
+}
+
+nav ul{
+    align-self: center;
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin: 10px;
+    padding: 0;
+} 
+
+nav li{
+    list-style: none;
+    gap: 25px;
+    margin: 0;
+    padding: 0;
+}
+nav li.usuario {
+    margin-left: auto;
+}
+a{
+    text-decoration: none;
+    color: black;
+
+}
+
+div{
+    background-color: rgb(95, 188, 241);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 30px;
+    padding: 15px;
+    border-radius: 20px;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.input{
+    padding: 6px 20px;
+    border-radius: 6px;
+    border: 1px solid #888;
+    text-align: left;
+}
+
+.boton{
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid black;
+    background-color: rgb(184, 229, 255);
+    color: black;
+}
+.boton:hover{
+
+    background-color: rgb(21, 148, 221);
+    color: rgb(255, 255, 255);
+    border: 1px solid rgb(255, 255, 255);
+}
+
+table{
+    width: 100%;
+    border-collapse: collapse;
+    background-color: aliceblue;
+}
+
+thead{
+    background-color: aqua;
+}
+tbody{
+    background-color: rgb(194, 255, 255);
+}
+th,td{
+    padding: 8px;
+    text-align: left;
+}
+
+

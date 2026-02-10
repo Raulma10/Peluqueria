@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Crear Servicio</title>
+        <link rel="stylesheet" th:href="@{/estilos.css}"/>
+    </head>
+    <body>
+        <nav>
+            <ul>
+                <li><a href="#">Cita</a></li>
+                <li><a href="#">Servicio</a></li>
+                <li><a href="#">Nosotros</a></li>
+                <li><a href="#">Contacto</a></li>
+                <li class="usuario"><a href="#" >Iniciar Sesion</a></li>
+            </ul>
+        </nav>
+        <h2>Formulario eliminacion de servicios</h2>
+        <div>
+
+            <table>
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th></th>
+
+                </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="servicio:${servicios}">
+                        <td><span th:text="${servicio.id}"></span></td>
+                        <td><span th:text="${servicio.nombre}"></span></td>
+                        <td><span th:text="${servicio.precio}"></span></td>
+                        <td>
+                            <form th:action="@{/servicios/borrarservicio}" method="post">
+                                <input type="hidden" name="id" th:value="${servicio.id}"/>
+                                <input type="submit" value="borrar" class="boton"/>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Borrar Usuario</title>
+        <link rel="stylesheet" th:href="@{/estilos.css}"/>
+    </head>
+    <body>
+        <nav>
+            <ul>
+                <li><a href="#">Cita</a></li>
+                <li><a href="#">Servicio</a></li>
+                <li><a href="#">Nosotros</a></li>
+                <li><a href="#">Contacto</a></li>
+                <li class="usuario"><a href="#" >Iniciar Sesion</a></li>
+            </ul>
+        </nav>
+        <div>
+
+            <table>
+                <thead>
+                    <tr>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Email</th>
+                    <th></th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="usuario:${usuarios}">
+                    <td><span th:text="${usuario.id}"></span></td>
+                    <td><span th:text="${usuario.nombre}"></span></td>
+                    <td><span th:text="${usuario.apellido}"></span></td>
+                    <td><span th:text="${usuario.email}"></span></td>
+                    <td>
+                        <form th:action="@{/usuarios/borrarusuario}" method="post">
+                            <input type="hidden" name="id" th:value="${usuario.id}"/>
+                            <input type="submit" value="borrar" class="boton"/>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    </body>
+</html>

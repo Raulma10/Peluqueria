@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Crear Servicio</title>
+        <link rel="stylesheet" th:href="@{/estilos.css}"/>
+    </head>
+    <body>
+        <nav>
+            <ul>
+                <li><a href="#">Cita</a></li>
+                <li><a href="#">Servicio</a></li>
+                <li><a href="#">Nosotros</a></li>
+                <li><a href="#">Contacto</a></li>
+                <li class="usuario"><a href="#" >Iniciar Sesion</a></li>
+            </ul>
+        </nav>
+        <h2>Formulario creacion de servicios</h2>
+        
+        <div>
+            <form th:action="@{/servicios/crearservicio}" th:object="${servicio}" method="post">
+                <label>Nombre:<br><input type="text" th:field="*{nombre}" class="input"/></label>
+                <label>Precio:<br> <input type="number" th:field="*{precio}" step="0.01" class="input"/></label><br>
+                <label><input type="submit" value="Añadir Servicio" class="boton"/></label>
+            </form>
+        </div>
+    </body>
+</html>

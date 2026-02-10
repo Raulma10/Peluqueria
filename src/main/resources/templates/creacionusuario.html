@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Crear Usuario</title>
+        <link rel="stylesheet" th:href="@{/estilos.css}"/>
+    </head>
+    <body>
+        <nav>
+            <ul>
+                <li><a href="#">Cita</a></li>
+                <li><a href="#">Servicio</a></li>
+                <li><a href="#">Nosotros</a></li>
+                <li><a href="#">Contacto</a></li>
+                <li class="usuario"><a href="#" >Iniciar Sesion</a></li>
+            </ul>
+        </nav>
+
+        <div>
+            <form th:action="@{/usuarios/crearusuario}" th:object="${usuario}" method="post">
+                <label>Nombre:<br> <input type="text" th:field="*{nombre}" /></label>
+                <label>Apellido:<br> <input type="text" th:field="*{apellido}" /></label>
+                <label>Email:<br> <input type="email" th:field="*{email}" /></label>
+                <label>Contraseña:<br> <input type="password" th:field="*{contraseña}" /></label><br>
+                <label><input type="submit" value="Crear Usuario" class="boton"/></label>
+        </form>
+        </div>
+        
+
+    </body>
+</html>
