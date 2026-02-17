@@ -64,6 +64,23 @@ form{
     text-align: left;
 }
 
+.btn_menu{
+    width: 50vh;
+    height: 8vh;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid black;
+    background-color: rgb(184, 229, 255);
+    color: black;
+    font-size: 1.5em;
+}
+
+.btn_menu:hover{
+    background-color: rgb(21, 148, 221);
+    color: rgb(255, 255, 255);
+    border: 1px solid rgb(255, 255, 255);
+}
+
 .boton{
     padding: 10px;
     border-radius: 6px;
@@ -72,7 +89,6 @@ form{
     color: black;
 }
 .boton:hover{
-
     background-color: rgb(21, 148, 221);
     color: rgb(255, 255, 255);
     border: 1px solid rgb(255, 255, 255);
