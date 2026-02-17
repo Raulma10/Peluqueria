@@ -37,7 +37,7 @@ public class UsuarioController {
 	@PostMapping("/crearusuario")
 	public String guardarUsuario(@ModelAttribute Usuario usuario) {
 		usuarioService.crearUsuario(usuario);
-		return plantillaCreacion;
+		return "redirect:/usuarios/login";
 	}
 	
 	//ACCESO AL FORMULARIO PARA BORRAR USUARIOS
@@ -59,7 +59,6 @@ public class UsuarioController {
 	@GetMapping("/login")
 	public String mostrarLogin(Model model) {
 		model.addAttribute("usuarios",usuarioService.listarUsuarios());
-		
 		return plantillaLogin;
 	}
 	
@@ -81,6 +80,7 @@ public class UsuarioController {
 		return plantillaPagPrincipal;
 	}
 
+	//MOSTRAR PAGINA PRINCIPAL
 	@GetMapping("/principal")
 	public String mostrarPrincipal(){
 		return plantillaPagPrincipal;
