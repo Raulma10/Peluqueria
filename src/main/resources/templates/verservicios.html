@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Lista Servicios</title>
+        <link rel="stylesheet" th:href="@{/estilos.css}"/>
+    </head>
+    <body>
+        <nav>
+            <ul>
+                <li><a th:href="@{/usuarios/principal}">Inicio</a></li>
+                <li><a href="#">Cita</a></li>
+                <li><a th:href="@{/servicios/verservicios}">Servicios</a></li>
+                <li><a href="#">Nosotros</a></li>
+                <li><a href="#">Contacto</a></li>
+                <li class="usuario"><a href="#" >Iniciar Sesion</a></li>
+            </ul>
+        </nav>
+        <h2>Lista de Servicios</h2>
+        <div>
+            <table>
+                <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="servicio:${servicios}">
+                        <td><span th:text="${servicio.nombre}"></span></td>
+                        <td><span th:text="${servicio.precio}"></span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>

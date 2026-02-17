@@ -63,7 +63,7 @@ public class UsuarioController {
 		return plantillaLogin;
 	}
 	
-	@PostMapping("/login")
+	@PostMapping("/principal")
 	public String login(@RequestParam String email, @RequestParam String contraseña, Model model) {
 		Usuario usuario =usuarioService.buscarPorMail(email);
 		
@@ -78,6 +78,11 @@ public class UsuarioController {
 		}
 		
 		//SI EXISTE, NOS REDIRIGE A LA PAGINA PRINCIPAL
+		return plantillaPagPrincipal;
+	}
+
+	@GetMapping("/principal")
+	public String mostrarPrincipal(){
 		return plantillaPagPrincipal;
 	}
 	

@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tfg.entity.Servicio;
 import com.tfg.service.ServicioService;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 @Controller
@@ -20,6 +22,7 @@ public class ServicioController {
 
 	private static final String plantillaCreacion = "creacionservicio";
 	private static final String plantillaBorrado = "borrarservicio";
+	private static final String plantillaListado = "verservicios";
 	
 	@Autowired
 	@Qualifier("ServicioServiceImpl")
@@ -51,5 +54,10 @@ public class ServicioController {
 		return "redirect:/servicios/borrarservicio";
 	} 
 	
-	
+	//ACCESO A LISTA DE SERVICIOS
+	@GetMapping("/verservicios")
+	public String verServicios(Model model) {
+		model.addAttribute("servicios",servicioService.listarServicios());
+		return plantillaListado;
+	}
 }
