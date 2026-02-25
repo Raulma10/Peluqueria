@@ -36,12 +36,9 @@
                     <option value="0">Selecciona un servicio</option>
                     <option th:each="servicio:${servicios}" th:value="${servicio.id}" th:text="${servicio.nombre}"></option>
                 </select><br><br>
-                <label>Cliente: </label>
-                <select th:field="*{cliente.id}" required class="input">
-                    <option value="0">Selecciona un cliente</option>
-                    <option th:each="usuario : ${clientes}" th:value="${usuario.id}" th:text="${usuario.nombre}">
-                    </option>
-                </select>
+                
+                <input type="hidden" th:field="*{cliente.id}" th:value="${cita.cliente.id}"/>
+                <p>Cliente <span th:text="${cita.cliente.nombre}"></span></p>
                 <p th:if="${error!=null}" th:text="${error}"></p>
                 <button type="submit" class="boton">Reservar</button>
 

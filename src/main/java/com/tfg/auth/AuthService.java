@@ -23,22 +23,7 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
 
 
-    public Usuario login(String email, String password){
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email,password));
-        
-        List<Usuario>usuarios=usuarioRepository.findByEmail(email);
-
-        if(usuarios.isEmpty()){
-            throw new RuntimeException("Usuario no encontrado");
-        }
-
-        Usuario usuario=usuarios.get(0);
-        if(!passwordEncoder.matches(password, usuario.getPassword())){
-            throw new RuntimeException("Contraseña incorrecta");
-        }
-
-        return usuario;
-    }
+    
 
     public Usuario register(String nombre, String apellido, String email, String password){
         Usuario usuario=Usuario.builder()

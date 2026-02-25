@@ -20,11 +20,7 @@ public class AuthController {
 
     private final AuthService authService;
     
-    @PostMapping("login")
-    public ResponseEntity<Usuario> login(@RequestBody LoginDTO request) {
-        Usuario usuario=authService.login(request.email, request.password);
-        return ResponseEntity.ok(usuario);
-    }
+    
 
     @PostMapping("registrar")
     public ResponseEntity<Usuario> register(@RequestBody RegisterDTO request) {

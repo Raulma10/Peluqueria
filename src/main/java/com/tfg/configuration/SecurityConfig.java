@@ -2,18 +2,10 @@ package com.tfg.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
-
 
 import lombok.RequiredArgsConstructor;
 
@@ -33,6 +25,12 @@ public class SecurityConfig {
                             .requestMatchers("/usuarios/login").permitAll()
                             .requestMatchers("/css/**","/js/**","/images/**","/estilos.css").permitAll()
                             .requestMatchers("/usuarios/crearusuario").permitAll()
+                            .requestMatchers("/usuarios/cerrarsesion").authenticated()
+                            .requestMatchers("/usuarios/borrarusuario").hasRole("ADMIN")
+                            .requestMatchers("/citas/borrarcita").hasRole("ADMIN")
+                            .requestMatchers("/servicios/crearservicio").hasRole("ADMIN")
+                            .requestMatchers("/servicios/borrarservicio").hasRole("ADMIN")
+                            .requestMatchers("/servicios/verservicios").permitAll()
                             .anyRequest().authenticated())
                     .formLogin(form->form
                         .loginPage("/usuarios/login")
@@ -40,11 +38,12 @@ public class SecurityConfig {
                         .usernameParameter("email")
                         .passwordParameter("password")
                         .defaultSuccessUrl("/usuarios/principal",true)
-                        .permitAll()
+                        .failureUrl("/usuarios/login?error")
+
                     )
                     .logout(logout->logout
                         .logoutUrl("/logout")
-                        .logoutSuccessUrl("/usuarios/login")
+                        .logoutSuccessUrl("/usuarios/login?logout")
                         .permitAll()
                     )
 

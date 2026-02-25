@@ -1,5 +1,6 @@
 package com.tfg.controller;
 
+import java.security.Principal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -23,6 +24,11 @@ import com.tfg.service.CitaService;
 import com.tfg.service.ServicioService;
 import com.tfg.service.UsuarioService;
 
+import org.springframework.web.bind.annotation.RequestBody;
+
+import com.tfg.repository.CitaRepository;
+
+
 
 
 @Controller
@@ -42,15 +48,15 @@ public class CitaController {
     private UsuarioService usuarioService;
     
     @GetMapping("/reservarcita")
-    public String formularioReservaCita(@RequestParam(required=false) LocalDate fecha, Model model) {
-        
-
+    public String formularioReservaCita(@RequestParam(required=false) LocalDate fecha, Model model, Principal principal) {
+        List<Usuario> usuarios=usuarioService.buscarPorMail(principal.getName());
+        Usuario cliente=usuarios.get(0);
         
         Cita cita=new Cita();
         cita.setServicio(new Servicio());
-        cita.setCliente(new Usuario());
+        cita.setCliente(cliente);
+
         model.addAttribute("cita",cita);
-        
         model.addAttribute("servicios",servicioService.listarServicios());
         model.addAttribute("clientes",usuarioService.listarUsuarios());
         
@@ -115,6 +121,25 @@ public class CitaController {
         citaService.borrarCita(id);
         return "redirect:/citas/borrarcita";
     }
+
+    @GetMapping("/miscitas")
+    public String verMisCitas(Model model, Principal principal) {
+        List<Usuario>usuarios=usuarioService.buscarPorMail(principal.getName());
+        Usuario cliente=usuarios.get(0);
+
+        List<Cita>citasUsuario=citaService.listarPorCliente(cliente);
+
+        model.addAttribute("citas",citasUsuario);
+        return "miscitas";
+    }
+
+    @PostMapping("/miscitas")
+    public String cancelarMiCita(@RequestParam int id, Principal principal) {
+        citaService.borrarCita(id);
+        return "redirect:/citas/miscitas";
+    }
+    
+    
 
 
 

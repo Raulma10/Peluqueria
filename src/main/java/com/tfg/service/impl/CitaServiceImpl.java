@@ -65,6 +65,11 @@ public class CitaServiceImpl implements CitaService{
     }
 
     @Override
+    public Cita buscarPorId(int id){
+        return citaRepository.findById(id).orElse(null);
+    }
+
+    @Override
     public List<Cita> listarPorCliente(Usuario cliente) {
        return citaRepository.findByCliente(cliente);
     }

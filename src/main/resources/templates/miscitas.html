@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Cancelar cita</title>
+        <link rel="stylesheet" th:href="@{/estilos.css}"/>
+    </head>
+    <body>
+        <nav>
+            <ul>
+                <li><a th:href="@{/usuarios/principal}">Inicio</a></li>
+                <li><a href="#">Cita</a></li>
+                <li><a th:href="@{/servicios/verservicios}">Servicios</a></li>
+                <li><a href="#">Nosotros</a></li>
+                <li><a href="#">Contacto</a></li>
+                <li class="usuario"><a href="#" >Iniciar Sesion</a></li>
+            </ul>
+        </nav>
+        <div>
+            <form th:action="@{/citas/borrarcita}" method="get">
+                <label>Cliente:</label>
+                <input type="text" name="nombreCliente" th:value="${clienteBuscado}" placeholder="Introduce Nombre" class="input"/>
+
+                <label>Fecha:</label>
+                <input type="date" name="fecha" th:value="${fechaSeleccionada}" class="input"/>
+
+                <button type="submit" class="boton">Filtar</button>
+            </form>
+        </div>
+
+        <div>
+
+            <table>
+                <thead>
+                    <tr>
+                    <th>Id</th>
+                    <th>Fecha</th>
+                    <th>Hora Inicio</th>
+                    <th>Hora Final</th>
+                    <th>Cliente</th>
+                    <th>Servicio</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="cita:${citas}">
+                    <td><span th:text="${cita.id}"></span></td>
+                    <td><span th:text="${cita.fecha}"></span></td>
+                    <td><span th:text="${cita.horaInicio}"></span></td>
+                    <td><span th:text="${cita.horaFinal}"></span></td>
+                    <td><span th:text="${cita.cliente.nombre+' '+cita.cliente.apellido}"></span></td>
+                    <td><span th:text="${cita.servicio.nombre}"></span></td>
+                    <td>
+                        <form th:action="@{/citas/borrarcita}" method="post">
+                            <input type="hidden" name="id" th:value="${cita.id}"/>
+                            <input type="submit" value="borrar" class="boton"/>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    </body>
+</html>

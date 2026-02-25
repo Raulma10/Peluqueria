@@ -15,6 +15,7 @@ public interface CitaService {
     public abstract Cita crearCita(Cita cita);
     public abstract boolean borrarCita(int id);
     public abstract Cita actualizarCita(Cita cita);
+    public abstract Cita buscarPorId(int id);
     public abstract List<Cita> listarPorCliente(Usuario cliente);
     public abstract List<Cita> listarPorServicio(Servicio servicio);
     public abstract List<Cita> listarPorFecha(LocalDate fecha);

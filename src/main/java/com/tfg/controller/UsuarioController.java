@@ -18,6 +18,8 @@ import com.tfg.entity.Rol;
 import com.tfg.entity.Usuario;
 import com.tfg.service.CitaService;
 import com.tfg.service.UsuarioService;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @Controller
 @RequestMapping("/usuarios")
@@ -106,9 +108,15 @@ public class UsuarioController {
 	
 	//ACCESO A LA PANTALLA DE INICIO DE SESION
 	@GetMapping("/login")
-	public String mostrarLogin(Model model) {
-		model.addAttribute("usuarios",usuarioService.listarUsuarios());
-		return plantillaLogin;
+	public String mostrarLogin() {
+		return "login";
+	}
+
+	
+	
+	@GetMapping("/logout")
+	public String mostrarLogout() {
+		return "logout";
 	}
 
 	//MOSTRAR PAGINA PRINCIPAL
