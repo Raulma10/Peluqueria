@@ -1,6 +1,7 @@
 package com.tfg.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -18,6 +19,15 @@ public class ServicioServiceImpl implements ServicioService{
 	@Autowired
 	@Qualifier("ServicioRepository")
 	private  ServicioRepository  servicioRepository;
+
+	@Override
+	public Servicio buscarPorId(int id){
+		Optional<Servicio> servicio=servicioRepository.findById(id);
+		if(servicio.isPresent()){
+			return servicio.get();
+		}
+		return null;
+	}
 
 	@Override
 	public List<Servicio> listarServicios() {

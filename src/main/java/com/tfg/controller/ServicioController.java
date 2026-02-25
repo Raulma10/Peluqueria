@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tfg.entity.Servicio;
 import com.tfg.service.ServicioService;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 
@@ -36,9 +35,14 @@ public class ServicioController {
 		return plantillaCreacion;
 	}
 	@PostMapping("/crearservicio")
-	public String guardarUsuario(@ModelAttribute Servicio servicio) {
-		servicioService.crearServicio(servicio);
-		return plantillaCreacion;
+	public String guardarUsuario(@ModelAttribute Servicio servicio, Model model) {
+		try{
+			servicioService.crearServicio(servicio);
+			return plantillaCreacion;
+		}catch(RuntimeException e){
+			model.addAttribute("error",e.getMessage());
+			return plantillaCreacion;
+		}
 	}
 	
 	//ACCESO AL FORMULARIO PARA BORRAR SERVICIO

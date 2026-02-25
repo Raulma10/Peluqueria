@@ -5,6 +5,7 @@ import java.util.List;
 import com.tfg.entity.Servicio;
 
 public interface ServicioService {
+	public abstract Servicio buscarPorId(int id);
 	public abstract List<Servicio> listarServicios();
 	public abstract Servicio crearServicio(Servicio servicio);
 	public abstract boolean borrarServicio(int id);

@@ -19,7 +19,7 @@ public class Cita {
 	//ATRIBUTOS
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column
+	@Column(name="id", nullable=false)
 	private int id;
 	
 	@Column(nullable=false)
@@ -38,11 +38,10 @@ public class Cita {
 	private Servicio servicio;
 	
 	//CONSTRUCTORES
-	public Cita(LocalDate fecha, LocalTime horaInicio, LocalTime horaFinal, Usuario cliente, Servicio servicio) {
+	public Cita(LocalDate fecha, LocalTime horaInicio, Usuario cliente, Servicio servicio) {
 		super();
 		this.fecha=fecha;
 		this.horaInicio=horaInicio;
-		this.horaFinal=horaFinal;
 		this.cliente=cliente;
 		this.servicio=servicio;
 	}

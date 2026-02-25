@@ -23,6 +23,7 @@
                 <label>Precio:<br> <input type="number" th:field="*{precio}" step="0.01" class="input"/></label><br>
                 <label><input type="submit" value="Añadir Servicio" class="boton"/></label>
             </form>
+            <p th:if="${error}" th:text="${error}"></p>
         </div>
     </body>
 </html>

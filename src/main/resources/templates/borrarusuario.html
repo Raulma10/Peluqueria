@@ -15,8 +15,21 @@
                 <li class="usuario"><a href="#" >Iniciar Sesion</a></li>
             </ul>
         </nav>
-        <div>
 
+        <div>
+            <form th:action="@{/usuarios/borrarusuario}" method="get">
+                <label>Nombre:</label>
+                <input type="text" name="nombre" th:value="${nombreClienteBuscado}" placeholder="Introduce Nombre" class="input"/>
+                <label>Apellido:</label>
+                <input type="text" name="apellido" th:value="${apellidoClienteBuscado}" placeholder="Introduce Apellido" class="input"/>
+                <label>Correo:</label>
+                <input type="email" name="correo" th:value="${correoClienteBuscado}" placeholder="Introduce Correo" class="input"/><br>
+                <button type="submit" class="boton">Filtar</button>
+                <p th:if="${error}" th:text="${error}"></p>
+            </form>
+        </div>
+
+        <div th:if="${usuarios!=null && !usuarios.isEmpty()}">
             <table>
                 <thead>
                     <tr>
