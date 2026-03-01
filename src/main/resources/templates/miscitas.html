@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Cancelar cita</title>
+        <link rel="stylesheet" th:href="@{/estilos.css}"/>
+    </head>
+    <body>
+        <nav>
+            <ul>
+                <li><a th:href="@{/usuarios/principal}">Inicio</a></li>
+                <li><a href="#">Cita</a></li>
+                <li><a th:href="@{/servicios/verservicios}">Servicios</a></li>
+                <li><a href="#">Nosotros</a></li>
+                <li><a href="#">Contacto</a></li>
+                <li class="usuario" sec:authorize="isAuthenticated()"><a th:href="@{/usuarios/logout}" >Cerrar Sesión</a></li>
+                <li class="usuario" sec:authorize="isAuthenticated()"><span sec:authentication="name"></span></li>
+            </ul>
+        </nav>
+        <div>
+            <h2>Mis citas</h2>
+            <table>
+                <thead>
+                    <tr>
+                    <th>Fecha</th>
+                    <th>Hora Inicio</th>
+                    <th>Hora Final</th>
+                    <th>Servicio</th>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="cita:${citas}">
+                    <td><span th:text="${cita.fecha}"></span></td>
+                    <td><span th:text="${cita.horaInicio}"></span></td>
+                    <td><span th:text="${cita.horaFinal}"></span></td>
+                    <td><span th:text="${cita.servicio.nombre}"></span></td>
+                    <td>
+                        <form th:action="@{/citas/miscitas}" method="post">
+                            <input type="hidden" name="id" th:value="${cita.id}"/>
+                            <input type="submit" value="borrar" class="boton"/>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    </body>
+</html>

@@ -8,15 +8,30 @@
     <body>
         <nav>
             <ul>
+                <li><a th:href="@{/usuarios/principal}">Inicio</a></li>
                 <li><a href="#">Cita</a></li>
                 <li><a href="#">Servicio</a></li>
                 <li><a href="#">Nosotros</a></li>
                 <li><a href="#">Contacto</a></li>
-                <li class="usuario"><a href="#" >Iniciar Sesion</a></li>
+                <li class="usuario" sec:authorize="isAuthenticated()"><a th:href="@{/usuarios/logout}" >Cerrar Sesión</a></li>
+                <li class="usuario" sec:authorize="isAuthenticated()"><span sec:authentication="name"></span></li>
             </ul>
         </nav>
-        <div>
 
+        <div>
+            <form th:action="@{/usuarios/borrarusuario}" method="get">
+                <label>Nombre:</label>
+                <input type="text" name="nombre" th:value="${nombreClienteBuscado}" placeholder="Introduce Nombre" class="input"/>
+                <label>Apellido:</label>
+                <input type="text" name="apellido" th:value="${apellidoClienteBuscado}" placeholder="Introduce Apellido" class="input"/>
+                <label>Correo:</label>
+                <input type="email" name="correo" th:value="${correoClienteBuscado}" placeholder="Introduce Correo" class="input"/><br>
+                <button type="submit" class="boton">Filtar</button>
+                <p th:if="${error}" th:text="${error}"></p>
+            </form>
+        </div>
+
+        <div th:if="${usuarios!=null && !usuarios.isEmpty()}">
             <table>
                 <thead>
                     <tr>

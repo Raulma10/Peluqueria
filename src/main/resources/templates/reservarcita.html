@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Reservar Cita</title>
+        <link rel="stylesheet" th:href="@{/estilos.css}"/>
+    </head>
+    <body>
+        <nav>
+            <ul>
+                <li><a th:href="@{/usuarios/principal}">Inicio</a></li>
+                <li><a href="#">Cita</a></li>
+                <li><a th:href="@{/servicios/verservicios}">Servicios</a></li>
+                <li><a href="#">Nosotros</a></li>
+                <li><a href="#">Contacto</a></li>
+                <li class="usuario" sec:authorize="isAuthenticated()"><a th:href="@{/usuarios/logout}" >Cerrar Sesión</a></li>
+                <li class="usuario" sec:authorize="isAuthenticated()"><span sec:authentication="name"></span></li>
+            </ul>
+        </nav>
+
+        <div>
+            <h2>Formulario de reserva</h2>
+            <form th:action="@{/citas/reservarcita}" method="get">
+                <label>Fecha: </label>
+                <input type="date" name="fecha" th:value="${fechaSeleccionada}" required class="input"/>
+                <button type="submit" class="boton">Mostrar horas</button>
+            </form>
+
+            <form th:if="${fechaSeleccionada!=null}" th:action="@{/citas/reservarcita}" th:object="${cita}" method="post">
+                <input type="hidden" th:field="*{fecha}" required />
+                <label>Hora: </label>
+                <select th:field="*{horaInicio}" required class="input">
+                    <option value="">Selecciona una hora</option>
+                    <option th:each="hora:${horasDisponibles}" th:value="${hora}" th:text="${hora}" ></option>
+                </select><br><br>
+                <label>Servicio: </label>
+                <select th:field="*{servicio.id}" required class="input">
+                    <option value="0">Selecciona un servicio</option>
+                    <option th:each="servicio:${servicios}" th:value="${servicio.id}" th:text="${servicio.nombre}"></option>
+                </select><br><br>
+                
+                <input type="hidden" th:field="*{cliente.id}" th:value="${cita.cliente.id}"/>
+                <p>Cliente <span th:text="${cita.cliente.nombre}"></span></p>
+                <p th:if="${error!=null}" th:text="${error}"></p>
+                <button type="submit" class="boton">Reservar</button>
+
+            </form>
+        </div>
+    </body>
+</html>

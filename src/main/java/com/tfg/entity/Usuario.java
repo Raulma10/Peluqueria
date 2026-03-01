@@ -1,5 +1,12 @@
 package com.tfg.entity;
 
+import java.util.Collection;
+import java.util.List;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -10,12 +17,20 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 
 @Entity
 @Table(name="usuarios")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Usuario {
+public class Usuario  implements UserDetails{
 
 	//ATRIBUTOS
 	@Id
@@ -29,22 +44,22 @@ public class Usuario {
 	private String apellido;
 	@Column(unique=true, nullable=false)
 	private String email;
-	@Column(nullable=false)
-	private String contraseña;
+	@Column(name="password", nullable=false)
+	private String password;
 	@Enumerated(EnumType.STRING)
 	@Column(nullable=false)
 	private Rol rol;
 
 	//CONSTRUCTORES
-	public Usuario(String nombre, String apellido, String email, String contraseña, Rol rol) {
+	public Usuario(String nombre, String apellido, String email, String password, Rol rol) {
 		this.nombre=nombre;
 		this.apellido=apellido;
 		this.email=email;
-		this.contraseña=contraseña;
+		this.password=password;
 		this.rol=rol;
 	}
 	
-	public Usuario() {}
+
 
 	//GETTERS Y SETTERS
 	public int getId() {
@@ -79,14 +94,14 @@ public class Usuario {
 		this.email = email;
 	}
 
-	public String getContraseña() {
-		return contraseña;
+	public String getPassword() {
+		return password;
 	}
 
 	//DEBERIA AÑADIR UN METODO PARA HACER QUE LA CONTRASEÑA SEA MAS SEGURA
 	//PERO DE MOMENTO NO ME INTERESA PARA PODER HACER PRUEBAS MAS FACILMENTE
-	public void setContraseña(String contraseña) {
-		this.contraseña = contraseña;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public Rol getRol() {
@@ -96,7 +111,36 @@ public class Usuario {
 	public void setRol(Rol rol) {
 		this.rol = rol;
 	}
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+		return List.of(new SimpleGrantedAuthority(rol.name()));
+	}
+
+	@Override
+	public boolean isAccountNonExpired(){
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked(){
+		return true;
+	}
 	
+	@Override
+	public boolean isCredentialsNonExpired(){
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled(){
+		return true;
+	}
+
+    @Override
+    public String getUsername() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 	
 
 }
