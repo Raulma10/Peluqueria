@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.tfg.dto.LoginDTO;
 import com.tfg.dto.RegisterDTO;
 import com.tfg.entity.Usuario;
 
