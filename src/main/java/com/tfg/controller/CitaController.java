@@ -24,10 +24,6 @@ import com.tfg.service.CitaService;
 import com.tfg.service.ServicioService;
 import com.tfg.service.UsuarioService;
 
-import org.springframework.web.bind.annotation.RequestBody;
-
-import com.tfg.repository.CitaRepository;
-
 
 
 
@@ -137,6 +133,11 @@ public class CitaController {
     public String cancelarMiCita(@RequestParam int id, Principal principal) {
         citaService.borrarCita(id);
         return "redirect:/citas/miscitas";
+    }
+
+    @GetMapping("/gestionarcita")
+    public String gestionarCita(){
+        return "gestionarcita";
     }
     
     

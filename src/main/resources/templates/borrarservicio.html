@@ -7,18 +7,41 @@
     </head>
     <body>
         <nav>
-            <ul>
+            <ul sec:authorize="hasRole('ADMIN')">
                 <li><a th:href="@{/usuarios/principal}">Inicio</a></li>
-                <li><a href="#">Cita</a></li>
-                <li><a href="#">Servicio</a></li>
+                <li class="submenu"><a th:href="@{/usuarios/borrarusuario}">Usuarios</a></li>
+                <li><a th:href="@{/citas/borrarcita}">Citas</a></li>
+                <li class="submenu"><a th:href="@{/servicios/gestionarservicios}">Servicios</a>
+                    <ul class="desplegable">
+                        <li><a th:href="@{/servicios/crearservicio}">Crear Servicio</a></li>
+                        <li><a th:href="@{/servicios/actualizarservicio}">Actualizar Servicio</a></li>
+                        <li><a th:href="@{/servicios/borrarservicio}">Borrar Servicio</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">Nosotros</a></li>
+                <li><a href="#">Contacto</a></li>
+                <li class="usuario" sec:authorize="isAuthenticated()"><a th:href="@{/usuarios/logout}" >Cerrar Sesión</a></li>
+                <li class="usuario" sec:authorize="isAuthenticated()"><span sec:authentication="name"></span></li>
+            </ul>
+
+            <ul sec:authorize="hasRole('CLIENTE')">
+                <li><a th:href="@{/usuarios/principal}">Inicio</a></li>
+                <li class="submenu"><a th:href="@{/citas/gestionarcita}">Cita</a>
+                    <ul class="desplegable">
+                        <li><a th:href="@{/citas/reservarcita}">Reservar Cita</a></li>
+                        <li><a th:href="@{/citas/miscitas}">Mis Citas</a></li>
+                    </ul>
+                </li>
+                
+                <li class="submenu"><a th:href="@{/servicios/verservicios}">Servicios</a></li>
                 <li><a href="#">Nosotros</a></li>
                 <li><a href="#">Contacto</a></li>
                 <li class="usuario" sec:authorize="isAuthenticated()"><a th:href="@{/usuarios/logout}" >Cerrar Sesión</a></li>
                 <li class="usuario" sec:authorize="isAuthenticated()"><span sec:authentication="name"></span></li>
             </ul>
         </nav>
-        <h2>Formulario eliminacion de servicios</h2>
         <div>
+            <h2>Formulario eliminacion de servicios</h2>
 
             <table>
                 <thead>
