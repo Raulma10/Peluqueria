@@ -2,7 +2,7 @@
 <html lang="es">
     <head>
         <meta charset="UTF-8">
-        <title>Reservar Cita</title>
+        <title>Actualizar Servicio</title>
         <link rel="stylesheet" th:href="@{/estilos.css}"/>
     </head>
     <body>
@@ -40,34 +40,42 @@
                 <li class="usuario" sec:authorize="isAuthenticated()"><span sec:authentication="name"></span></li>
             </ul>
         </nav>
-
+        
         <div>
-            <h2>Formulario de reserva</h2>
-            <form th:action="@{/citas/reservarcita}" method="get">
-                <label>Fecha: </label>
-                <input type="date" name="fecha" th:value="${fechaSeleccionada}" required class="input"/>
-                <button type="submit" class="boton">Mostrar horas</button>
-            </form>
+            <h2>Formulario actualizacion de servicios</h2>
+            
+            <table>
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th></th>
 
-            <form th:if="${fechaSeleccionada!=null}" th:action="@{/citas/reservarcita}" th:object="${cita}" method="post">
-                <input type="hidden" th:field="*{fecha}" required />
-                <label>Hora: </label>
-                <select th:field="*{horaInicio}" required class="input">
-                    <option value="">Selecciona una hora</option>
-                    <option th:each="hora:${horasDisponibles}" th:value="${hora}" th:text="${hora}" ></option>
-                </select><br><br>
-                <label>Servicio: </label>
-                <select th:field="*{servicio.id}" required class="input">
-                    <option value="0">Selecciona un servicio</option>
-                    <option th:each="servicio:${servicios}" th:value="${servicio.id}" th:text="${servicio.nombre}"></option>
-                </select><br><br>
-                
-                <input type="hidden" th:field="*{cliente.id}" th:value="${cita.cliente.id}"/>
-                <p>Cliente <span th:text="${cita.cliente.nombre}"></span></p>
-                <p th:if="${error!=null}" th:text="${error}"></p>
-                <button type="submit" class="boton">Reservar</button>
-
+                </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="servicio:${servicios}">
+                        <td><span th:text="${servicio.id}"></span></td>
+                        <td><span th:text="${servicio.nombre}"></span></td>
+                        <td><span th:text="${servicio.precio}"></span></td>
+                        <td>
+                            <form th:action="@{/servicios/actualizarservicio}" method="get">
+                                <input type="hidden" name="idServicioSeleccionado" th:value="${servicio.id}"/>
+                                <input type="submit" value="actualizar" class="boton"/>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table><br>
+            <form  th:if="${servicioSeleccionado!=null}" th:action="@{/servicios/actualizarservicio}" th:object="${servicioSeleccionado}" method="post">
+                <input type="hidden" th:field="*{id}"/>
+                <label>Nombre:<br><input type="text" th:field="*{nombre}" class="input"/></label>
+                <label>Precio:<br> <input type="number" th:field="*{precio}" step="0.01" class="input"/></label><br>
+                <label><input type="submit" value="Guardar Cambios" class="boton"/></label>
             </form>
+            <p th:if="${error}" th:text="${error}"></p>
+
         </div>
     </body>
 </html>

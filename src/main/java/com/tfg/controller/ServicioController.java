@@ -18,10 +18,6 @@ import com.tfg.service.ServicioService;
 @Controller
 @RequestMapping("/servicios")
 public class ServicioController {
-
-	private static final String plantillaCreacion = "creacionservicio";
-	private static final String plantillaBorrado = "borrarservicio";
-	private static final String plantillaListado = "verservicios";
 	
 	@Autowired
 	@Qualifier("ServicioServiceImpl")
@@ -32,24 +28,48 @@ public class ServicioController {
 	public String mostrarFormulario(Model model) {
 		model.addAttribute("servicios",servicioService.listarServicios());
 		model.addAttribute("servicio",new Servicio());
-		return plantillaCreacion;
+		return "creacionservicio";
 	}
 	@PostMapping("/crearservicio")
-	public String guardarUsuario(@ModelAttribute Servicio servicio, Model model) {
+	public String guardarServicio(@ModelAttribute Servicio servicio, Model model) {
 		try{
 			servicioService.crearServicio(servicio);
-			return plantillaCreacion;
+			return "redirect:/servicios/crearservicio";
 		}catch(RuntimeException e){
 			model.addAttribute("error",e.getMessage());
-			return plantillaCreacion;
+			return "creacionservicio";
 		}
+	}
+
+	//FORMULARIO PARA ACRTUALIZAR SERVICIO
+	@GetMapping("/actualizarservicio")
+	public String mostrarServicios(@RequestParam(value="idServicioSeleccionado", required = false) Integer idServicioSeleccionado,Model model){
+		model.addAttribute("servicios",servicioService.listarServicios());
+		if(idServicioSeleccionado!=null){
+			Servicio servicioSeleccionado=servicioService.buscarPorId(idServicioSeleccionado);
+			model.addAttribute("servicioSeleccionado",servicioSeleccionado);
+		}
+		return "actualizarservicio";
+	}
+
+	@PostMapping("/actualizarservicio")
+	public String actualizarServicio(@ModelAttribute Servicio servicio, Model model){
+		try{
+			servicioService.actualizarServicio(servicio);
+		}catch(RuntimeException e){
+			model.addAttribute("error",e.getMessage());
+			model.addAttribute("servicios",servicioService.listarServicios());
+			model.addAttribute("servicioSeleccionado",servicio);
+			return "actualizarservicio";
+		}
+		return "redirect:/servicios/actualizarservicio";
 	}
 	
 	//ACCESO AL FORMULARIO PARA BORRAR SERVICIO
 	@GetMapping("/borrarservicio")
 	public String mostrarForm(Model model) {
 		model.addAttribute("servicios",servicioService.listarServicios());
-		return plantillaBorrado;
+		return "borrarservicio";
 	}
 	
 	@PostMapping("/borrarservicio")
@@ -62,6 +82,11 @@ public class ServicioController {
 	@GetMapping("/verservicios")
 	public String verServicios(Model model) {
 		model.addAttribute("servicios",servicioService.listarServicios());
-		return plantillaListado;
+		return "verservicios";
+	}
+
+	@GetMapping("/gestionarservicios")
+	public String mostrarGestionar(){
+		return "gestionarservicios";
 	}
 }

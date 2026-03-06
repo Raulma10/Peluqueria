@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <head>
         <meta charset="UTF-8">
-        <title>Reservar Cita</title>
+        <title>Principal</title>
         <link rel="stylesheet" th:href="@{/estilos.css}"/>
     </head>
     <body>
@@ -26,7 +28,7 @@
 
             <ul sec:authorize="hasRole('CLIENTE')">
                 <li><a th:href="@{/usuarios/principal}">Inicio</a></li>
-                <li class="submenu"><a th:href="@{/citas/gestionarcita}">Cita</a>
+                <li class="submenu"><a th:herf="@{/citas/gestionarcita}">Cita</a>
                     <ul class="desplegable">
                         <li><a th:href="@{/citas/reservarcita}">Reservar Cita</a></li>
                         <li><a th:href="@{/citas/miscitas}">Mis Citas</a></li>
@@ -40,34 +42,10 @@
                 <li class="usuario" sec:authorize="isAuthenticated()"><span sec:authentication="name"></span></li>
             </ul>
         </nav>
-
-        <div>
-            <h2>Formulario de reserva</h2>
-            <form th:action="@{/citas/reservarcita}" method="get">
-                <label>Fecha: </label>
-                <input type="date" name="fecha" th:value="${fechaSeleccionada}" required class="input"/>
-                <button type="submit" class="boton">Mostrar horas</button>
-            </form>
-
-            <form th:if="${fechaSeleccionada!=null}" th:action="@{/citas/reservarcita}" th:object="${cita}" method="post">
-                <input type="hidden" th:field="*{fecha}" required />
-                <label>Hora: </label>
-                <select th:field="*{horaInicio}" required class="input">
-                    <option value="">Selecciona una hora</option>
-                    <option th:each="hora:${horasDisponibles}" th:value="${hora}" th:text="${hora}" ></option>
-                </select><br><br>
-                <label>Servicio: </label>
-                <select th:field="*{servicio.id}" required class="input">
-                    <option value="0">Selecciona un servicio</option>
-                    <option th:each="servicio:${servicios}" th:value="${servicio.id}" th:text="${servicio.nombre}"></option>
-                </select><br><br>
-                
-                <input type="hidden" th:field="*{cliente.id}" th:value="${cita.cliente.id}"/>
-                <p>Cliente <span th:text="${cita.cliente.nombre}"></span></p>
-                <p th:if="${error!=null}" th:text="${error}"></p>
-                <button type="submit" class="boton">Reservar</button>
-
-            </form>
+        <div sec:authorize="hasRole('ADMIN')">
+            <a th:href="@{/servicios/crearservicio}"><button class="btn_menu">Crear Servicio</button></a><br>
+            <a th:href="@{/servicios/actualizarservicio}"><button class="btn_menu">Actualizar Servicio</button></a><br>
+            <a th:href="@{/servicios/borrarservicio}"><button class="btn_menu">Borrar Servicio</button></a><br>
         </div>
     </body>
 </html>

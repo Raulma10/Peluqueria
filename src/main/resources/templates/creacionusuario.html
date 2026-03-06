@@ -6,15 +6,7 @@
         <link rel="stylesheet" th:href="@{/estilos.css}"/>
     </head>
     <body>
-        <nav>
-            <ul>
-                <li><a href="#">Cita</a></li>
-                <li><a href="#">Servicio</a></li>
-                <li><a href="#">Nosotros</a></li>
-                <li><a href="#">Contacto</a></li>
-                <li class="usuario"><a th:href="@{/usuarios/login}" >Iniciar Sesion</a></li>
-            </ul>
-        </nav>
+        
 
         <div>
             <form th:action="@{/usuarios/crearusuario}" th:object="${usuario}" method="post">

@@ -18,18 +18,11 @@ import com.tfg.entity.Rol;
 import com.tfg.entity.Usuario;
 import com.tfg.service.CitaService;
 import com.tfg.service.UsuarioService;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 @Controller
 @RequestMapping("/usuarios")
 public class UsuarioController {
-
-	private final String plantillaCreacion = "creacionusuario";
-	private final String plantillaBorrado = "borrarusuario";
-	private final String plantillaLogin = "login";
-	private final String plantillaPagPrincipal = "principal";
-	
 	
 	@Autowired
 	@Qualifier("UsuarioServiceImpl")
@@ -43,7 +36,7 @@ public class UsuarioController {
 	public String mostrarFormulario(Model model) {
 		model.addAttribute("usuarios",usuarioService.listarUsuarios());
 		model.addAttribute("usuario",new Usuario());
-		return plantillaCreacion;
+		return "creacionusuario";
 	}
 	@PostMapping("/crearusuario")
 	public String guardarUsuario(@ModelAttribute Usuario usuario, Model model) {
@@ -53,7 +46,7 @@ public class UsuarioController {
 			return "redirect:/usuarios/login";
 		}catch(RuntimeException e){
 			model.addAttribute("error",e.getMessage());
-			return plantillaCreacion;
+			return "creacionusuario";
 		}
 	}
 	
@@ -89,7 +82,7 @@ public class UsuarioController {
 		model.addAttribute("nombreClienteBuscado",nombre);
 		model.addAttribute("apellidoClienteBuscado",apellido);
 		model.addAttribute("correoClienteBuscado",correo);
-		return plantillaBorrado;
+		return "borrarusuario";
 	}
 	
 	@PostMapping("/borrarusuario")
@@ -122,7 +115,7 @@ public class UsuarioController {
 	//MOSTRAR PAGINA PRINCIPAL
 	@GetMapping("/principal")
 	public String mostrarPrincipal(){
-		return plantillaPagPrincipal;
+		return "principal";
 	}
 	
 	

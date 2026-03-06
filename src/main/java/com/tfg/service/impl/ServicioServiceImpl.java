@@ -58,10 +58,11 @@ public class ServicioServiceImpl implements ServicioService{
 	@Override
 	public Servicio actualizarServicio(Servicio servicio) {
 		// TODO Auto-generated method stub
-		if(!servicioRepository.existsById(servicio.getId())) {
-			throw new RuntimeException("Servicio no encontrado");
-		}
-		return servicioRepository.save(servicio);
+		Servicio servicioBuscado=servicioRepository.findById(servicio.getId()).orElseThrow(()-> new RuntimeException("Servicio no encontrado"));
+		
+		servicioBuscado.setNombre(servicio.getNombre());
+		servicioBuscado.setPrecio(servicio.getPrecio());
+		return servicioRepository.save(servicioBuscado);
 	}
 	
 	
