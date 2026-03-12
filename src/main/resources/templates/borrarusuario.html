@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
     <head>
-        <meta charset="UTF-8">
+        <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org">
         <title>Borrar Usuario</title>
         <link rel="stylesheet" th:href="@{/estilos.css}"/>
     </head>
@@ -49,7 +49,7 @@
                 <input type="text" name="apellido" th:value="${apellidoClienteBuscado}" placeholder="Introduce Apellido" class="input"/>
                 <label>Correo:</label>
                 <input type="email" name="correo" th:value="${correoClienteBuscado}" placeholder="Introduce Correo" class="input"/><br>
-                <button type="submit" class="boton">Filtar</button>
+                <button type="submit" class="boton">Filtrar</button>
                 <p th:if="${error}" th:text="${error}"></p>
             </form>
         </div>
@@ -58,30 +58,28 @@
             <table>
                 <thead>
                     <tr>
-                    <th>Id</th>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>Email</th>
-                    <th></th>
-
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="usuario:${usuarios}">
-                    <td><span th:text="${usuario.id}"></span></td>
-                    <td><span th:text="${usuario.nombre}"></span></td>
-                    <td><span th:text="${usuario.apellido}"></span></td>
-                    <td><span th:text="${usuario.email}"></span></td>
-                    <td>
-                        <form th:action="@{/usuarios/borrarusuario}" method="post">
-                            <input type="hidden" name="id" th:value="${usuario.id}"/>
-                            <input type="submit" value="borrar" class="boton"/>
-                        </form>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Email</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="usuario:${usuarios}">
+                        <td><span th:text="${usuario.id}"></span></td>
+                        <td><span th:text="${usuario.nombre}"></span></td>
+                        <td><span th:text="${usuario.apellido}"></span></td>
+                        <td><span th:text="${usuario.email}"></span></td>
+                        <td>
+                            <form th:action="@{/usuarios/borrarusuario}" method="post">
+                                <input type="hidden" name="id" th:value="${usuario.id}"/>
+                                <input type="submit" value="Borrar" class="boton"/>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </body>
 </html>

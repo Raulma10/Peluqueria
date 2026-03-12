@@ -44,12 +44,13 @@
         </nav>
         <div sec:authorize="hasRole('ADMIN')">
             <a th:href="@{/usuarios/borrarusuario}"><button class="btn_menu">Gestionar Usuarios</button></a><br>
-            <a th:href="@{/servicios/gestionarservicios}"><button class="btn_menu">Gestionar Servicio</button></a><br>
+            <a th:href="@{/servicios/gestionarservicios}"><button class="btn_menu">Gestionar Servicios</button></a><br>
             <a th:href="@{/citas/borrarcita}"><button class="btn_menu">Gestionar Citas</button></a><br>
         </div>
         <div sec:authorize="hasRole('CLIENTE')">
             <a th:href="@{/citas/gestionarcita}"><button class="btn_menu">Gestionar Cita</button></a><br>
-            <a th:href="@{/servicios/verservicios}"><button class="btn_menu">Ver servicios</button></a><br>
+            <a th:href="@{/servicios/verservicios}"><button class="btn_menu">Ver Servicios</button></a><br>
+            <a th:href="@{/usuarios/actualizarusuario}"><button class="btn_menu">Actualizar Usuario</button></a><br>
         </div>
     </body>
 </html>

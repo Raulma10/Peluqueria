@@ -9,5 +9,6 @@ import com.tfg.entity.Servicio;
 @Repository("ServicioRepository")
 public interface ServicioRepository extends JpaRepository<Servicio,Integer>{
 	boolean existsByNombre(String nombre);
+	
 		
 }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
     <head>
-        <meta charset="UTF-8">
+        <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org">
         <title>Reservar Cita</title>
         <link rel="stylesheet" th:href="@{/estilos.css}"/>
     </head>
@@ -47,7 +47,7 @@
                 <label>Fecha: </label>
                 <input type="date" name="fecha" th:value="${fechaSeleccionada}" required class="input"/>
                 <button type="submit" class="boton">Mostrar horas</button>
-            </form>
+            </form><br>
 
             <form th:if="${fechaSeleccionada!=null}" th:action="@{/citas/reservarcita}" th:object="${cita}" method="post">
                 <input type="hidden" th:field="*{fecha}" required />
@@ -55,15 +55,15 @@
                 <select th:field="*{horaInicio}" required class="input">
                     <option value="">Selecciona una hora</option>
                     <option th:each="hora:${horasDisponibles}" th:value="${hora}" th:text="${hora}" ></option>
-                </select><br><br>
+                </select><br>
                 <label>Servicio: </label>
                 <select th:field="*{servicio.id}" required class="input">
                     <option value="0">Selecciona un servicio</option>
-                    <option th:each="servicio:${servicios}" th:value="${servicio.id}" th:text="${servicio.nombre}"></option>
-                </select><br><br>
+                    <option th:each="servicio:${servicios}" th:value="${servicio.id}" th:text="${servicio.nombre} + ' -- ' + ${#numbers.formatDecimal(servicio.precio,1,2)} + ' €'"></option>
+                </select>
                 
                 <input type="hidden" th:field="*{cliente.id}" th:value="${cita.cliente.id}"/>
-                <p>Cliente <span th:text="${cita.cliente.nombre}"></span></p>
+                <p>Cliente: <span th:text="${cita.cliente.nombre}"></span></p>
                 <p th:if="${error!=null}" th:text="${error}"></p>
                 <button type="submit" class="boton">Reservar</button>
 

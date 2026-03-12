@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="es">
     <head>
-        <meta charset="UTF-8">
-        <title>Cerrar Sesion</title>
+        <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org">
+        <title>Cerrar Sesión</title>
         <link rel="stylesheet" th:href="@{/estilos.css}"/>
     </head>
     <body>
         <div>
-            <h1>Cerrar Sesion</h1>
+            <h1>Cerrar Sesión</h1>
             <form th:action="@{/logout}" method="post">
-                <input type="submit" name="logout"  value="Cerrar Sesion" class="boton">
+                <input type="submit" name="logout"  value="Cerrar Sesión" class="boton">
             </form><br>
 
             <a th:href="@{/usuarios/principal}" class="boton">Cancelar</a>
