@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
     <head>
-        <meta charset="UTF-8">
-        <title>Borrar cita</title>
+        <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org">
+        <title>Borrar Cita</title>
         <link rel="stylesheet" th:href="@{/estilos.css}"/>
     </head>
     <body>
@@ -48,7 +48,7 @@
                 <label>Fecha:</label>
                 <input type="date" name="fecha" th:value="${fechaSeleccionada}" class="input"/>
 
-                <button type="submit" class="boton">Filtar</button>
+                <button type="submit" class="boton">Filtrar</button>
             </form>
         </div>
 
@@ -57,12 +57,13 @@
             <table>
                 <thead>
                     <tr>
-                    <th>Id</th>
+                    <th>ID</th>
                     <th>Fecha</th>
                     <th>Hora Inicio</th>
                     <th>Hora Final</th>
                     <th>Cliente</th>
                     <th>Servicio</th>
+                    <th>Pago</th>
                     <th></th>
                 </tr>
             </thead>
@@ -74,6 +75,7 @@
                     <td><span th:text="${cita.horaFinal}"></span></td>
                     <td><span th:text="${cita.cliente.nombre+' '+cita.cliente.apellido}"></span></td>
                     <td><span th:text="${cita.servicio.nombre}"></span></td>
+                    <td><span th:text="${#numbers.formatDecimal(cita.servicio.precio,1,2)} + ' €'"></span></td>
                     <td>
                         <form th:action="@{/citas/borrarcita}" method="post">
                             <input type="hidden" name="id" th:value="${cita.id}"/>

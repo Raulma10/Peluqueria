@@ -12,7 +12,7 @@ public interface UsuarioService {
 	public abstract Optional<Usuario> buscarPorNombre(String nombre);
 	public abstract List<Usuario> buscarPorApellido(String apellido);
 	public abstract List<Usuario> buscarPorNombreAndApellido(String nombre, String apellido);
-	public abstract List<Usuario> buscarPorMail(String email);
+	public abstract Optional<Usuario> buscarPorMail(String email);
 	public abstract Usuario crearUsuario(Usuario usuario);
 	public abstract boolean borrarUsuario(int id);
 	public abstract Usuario actualizarUsuario(Usuario usuario);

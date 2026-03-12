@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
     <head>
-        <meta charset="UTF-8">
+        <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org">
         <title>Borrar Servicio</title>
         <link rel="stylesheet" th:href="@{/estilos.css}"/>
     </head>
@@ -41,12 +41,12 @@
             </ul>
         </nav>
         <div>
-            <h2>Formulario eliminacion de servicios</h2>
+            <h2>Formulario eliminación de servicios</h2>
 
             <table>
                 <thead>
                 <tr>
-                    <th>Id</th>
+                    <th>ID</th>
                     <th>Nombre</th>
                     <th>Precio</th>
                     <th></th>
@@ -57,7 +57,7 @@
                     <tr th:each="servicio:${servicios}">
                         <td><span th:text="${servicio.id}"></span></td>
                         <td><span th:text="${servicio.nombre}"></span></td>
-                        <td><span th:text="${servicio.precio}"></span></td>
+                        <td><span th:text="${#numbers.formatDecimal(servicio.precio,1,2)} + ' €'"></span></td>
                         <td>
                             <form th:action="@{/servicios/borrarservicio}" method="post">
                                 <input type="hidden" name="id" th:value="${servicio.id}"/>

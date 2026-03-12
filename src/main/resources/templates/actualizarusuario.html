@@ -2,7 +2,7 @@
 <html lang="es">
     <head>
         <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org">
-        <title>Lista Servicios</title>
+        <title>Actualizar Usuario</title>
         <link rel="stylesheet" th:href="@{/estilos.css}"/>
     </head>
     <body>
@@ -40,22 +40,20 @@
                 <li class="usuario" sec:authorize="isAuthenticated()"><span sec:authentication="name"></span></li>
             </ul>
         </nav>
+        
         <div>
-            <h2>Lista de Servicios</h2>
-            <table>
-                <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Precio</th>
-                </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="servicio:${servicios}">
-                        <td><span th:text="${servicio.nombre}"></span></td>
-                        <td><span th:text="${#numbers.formatDecimal(servicio.precio,1,2)} + ' €'"></span></td>
-                    </tr>
-                </tbody>
-            </table>
+            <h2>Formulario actualización de usuario</h2>
+            
+           
+            <form  th:if="${usuarioLogueado!=null}" th:action="@{/usuarios/actualizarusuario}" th:object="${usuarioLogueado}" method="post">
+                <input type="hidden" th:field="*{id}"/>
+                <label>Nombre:<br><input type="text" th:field="*{nombre}" class="input"/></label>
+                <label>Apellido:<br> <input type="text" th:field="*{apellido}"  class="input"/></label><br>
+                <label>Email:<br> <input type="email" th:field="*{email}"  class="input"/></label><br>
+                <label><input type="submit" value="Guardar Cambios" class="boton"/></label>
+            </form>
+            <p th:if="${error}" th:text="${error}"></p>
+
         </div>
     </body>
 </html>

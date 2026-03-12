@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
     <head>
-        <meta charset="UTF-8">
+        <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org">
         <title>Actualizar Servicio</title>
         <link rel="stylesheet" th:href="@{/estilos.css}"/>
     </head>
@@ -47,7 +47,7 @@
             <table>
                 <thead>
                 <tr>
-                    <th>Id</th>
+                    <th>ID</th>
                     <th>Nombre</th>
                     <th>Precio</th>
                     <th></th>
@@ -58,11 +58,11 @@
                     <tr th:each="servicio:${servicios}">
                         <td><span th:text="${servicio.id}"></span></td>
                         <td><span th:text="${servicio.nombre}"></span></td>
-                        <td><span th:text="${servicio.precio}"></span></td>
+                        <td><span th:text="${#numbers.formatDecimal(servicio.precio,1,2)} + ' €'"></span></td>
                         <td>
                             <form th:action="@{/servicios/actualizarservicio}" method="get">
                                 <input type="hidden" name="idServicioSeleccionado" th:value="${servicio.id}"/>
-                                <input type="submit" value="actualizar" class="boton"/>
+                                <input type="submit" value="Actualizar" class="boton"/>
                             </form>
                         </td>
                     </tr>

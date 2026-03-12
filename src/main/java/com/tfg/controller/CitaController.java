@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -45,8 +46,13 @@ public class CitaController {
     
     @GetMapping("/reservarcita")
     public String formularioReservaCita(@RequestParam(required=false) LocalDate fecha, Model model, Principal principal) {
-        List<Usuario> usuarios=usuarioService.buscarPorMail(principal.getName());
-        Usuario cliente=usuarios.get(0);
+        Optional<Usuario> usuario=usuarioService.buscarPorMail(principal.getName());
+        if(usuario.isEmpty()){
+            model.addAttribute("error","Usuario no encontrado");
+            return "reservarcita";
+        }
+        
+        Usuario cliente=usuario.get();
         
         Cita cita=new Cita();
         cita.setServicio(new Servicio());
@@ -120,8 +126,13 @@ public class CitaController {
 
     @GetMapping("/miscitas")
     public String verMisCitas(Model model, Principal principal) {
-        List<Usuario>usuarios=usuarioService.buscarPorMail(principal.getName());
-        Usuario cliente=usuarios.get(0);
+        Optional<Usuario>usuario=usuarioService.buscarPorMail(principal.getName());
+        if(usuario.isEmpty()){
+            model.addAttribute("error","Usuario no encontrado");
+            return "miscitas";
+        }
+        
+        Usuario cliente=usuario.get();
 
         List<Cita>citasUsuario=citaService.listarPorCliente(cliente);
 

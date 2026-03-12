@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
     <head>
-        <meta charset="UTF-8">
+        <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org">
         <title>Crear Servicio</title>
         <link rel="stylesheet" th:href="@{/estilos.css}"/>
     </head>
@@ -42,7 +42,7 @@
         </nav>
         
         <div>
-            <h2>Formulario creacion de servicios</h2>
+            <h2>Formulario creación de servicios</h2>
             <form th:action="@{/servicios/crearservicio}" th:object="${servicio}" method="post">
                 <label>Nombre:<br><input type="text" th:field="*{nombre}" class="input"/></label>
                 <label>Precio:<br> <input type="number" th:field="*{precio}" step="0.01" class="input"/></label><br>
