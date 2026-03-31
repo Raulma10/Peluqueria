@@ -20,8 +20,12 @@
                 </li>
                 <li><a href="#">Nosotros</a></li>
                 <li><a href="#">Contacto</a></li>
-                <li class="usuario" sec:authorize="isAuthenticated()"><a th:href="@{/usuarios/logout}" >Cerrar Sesión</a></li>
-                <li class="usuario" sec:authorize="isAuthenticated()"><span sec:authentication="name"></span></li>
+                <li class="usuario" sec:authorize="isAuthenticated()"><span sec:authentication="principal.nombre"></span>
+                    <ul class="desplegable">
+                        <li sec:authorize="isAuthenticated()"><a th:href="@{/usuarios/gestionusuario}">Gestionar Usuario</a></li>
+                        <li sec:authorize="isAuthenticated()"><a th:href="@{/usuarios/logout}" >Cerrar Sesión</a></li>
+                    </ul>
+                </li>
             </ul>
 
             <ul sec:authorize="hasRole('CLIENTE')">
@@ -36,11 +40,16 @@
                 <li class="submenu"><a th:href="@{/servicios/verservicios}">Servicios</a></li>
                 <li><a href="#">Nosotros</a></li>
                 <li><a href="#">Contacto</a></li>
-                <li class="usuario" sec:authorize="isAuthenticated()"><a th:href="@{/usuarios/logout}" >Cerrar Sesión</a></li>
-                <li class="usuario" sec:authorize="isAuthenticated()"><span sec:authentication="name"></span></li>
+                <li class="usuario" sec:authorize="isAuthenticated()"><span sec:authentication="principal.nombre"></span>
+                    <ul class="desplegable">
+                        <li sec:authorize="isAuthenticated()"><a th:href="@{/usuarios/gestionusuario}">Gestionar Usuario</a></li>
+                        <li sec:authorize="isAuthenticated()"><a th:href="@{/usuarios/logout}" >Cerrar Sesión</a></li>
+                    </ul>
+                </li>
             </ul>
         </nav>
         <div>
+            <h2>Listado de citas</h2>
             <form th:action="@{/citas/borrarcita}" method="get">
                 <label>Cliente:</label>
                 <input type="text" name="nombreCliente" th:value="${clienteBuscado}" placeholder="Introduce Nombre" class="input"/>
@@ -50,11 +59,8 @@
 
                 <button type="submit" class="boton">Filtrar</button>
             </form>
-        </div>
-
-        <div>
-
-            <table>
+            <br>
+            <table th:if="${citas!=null && !citas.isEmpty()}">
                 <thead>
                     <tr>
                     <th>ID</th>
@@ -79,12 +85,14 @@
                     <td>
                         <form th:action="@{/citas/borrarcita}" method="post">
                             <input type="hidden" name="id" th:value="${cita.id}"/>
-                            <input type="submit" value="borrar" class="boton"/>
+                            <input type="submit" value="Borrar" class="boton"/>
                         </form>
                     </td>
                 </tr>
             </tbody>
         </table>
-    </div>
+        </div>
+
+        
     </body>
 </html>

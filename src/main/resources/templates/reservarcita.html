@@ -20,8 +20,12 @@
                 </li>
                 <li><a href="#">Nosotros</a></li>
                 <li><a href="#">Contacto</a></li>
-                <li class="usuario" sec:authorize="isAuthenticated()"><a th:href="@{/usuarios/logout}" >Cerrar Sesión</a></li>
-                <li class="usuario" sec:authorize="isAuthenticated()"><span sec:authentication="name"></span></li>
+                <li class="usuario" sec:authorize="isAuthenticated()"><span sec:authentication="principal.nombre"></span>
+                    <ul class="desplegable">
+                        <li sec:authorize="isAuthenticated()"><a th:href="@{/usuarios/gestionusuario}">Gestionar Usuario</a></li>
+                        <li sec:authorize="isAuthenticated()"><a th:href="@{/usuarios/logout}" >Cerrar Sesión</a></li>
+                    </ul>
+                </li>
             </ul>
 
             <ul sec:authorize="hasRole('CLIENTE')">
@@ -36,8 +40,12 @@
                 <li class="submenu"><a th:href="@{/servicios/verservicios}">Servicios</a></li>
                 <li><a href="#">Nosotros</a></li>
                 <li><a href="#">Contacto</a></li>
-                <li class="usuario" sec:authorize="isAuthenticated()"><a th:href="@{/usuarios/logout}" >Cerrar Sesión</a></li>
-                <li class="usuario" sec:authorize="isAuthenticated()"><span sec:authentication="name"></span></li>
+                <li class="usuario" sec:authorize="isAuthenticated()"><span sec:authentication="principal.nombre"></span>
+                    <ul class="desplegable">
+                        <li sec:authorize="isAuthenticated()"><a th:href="@{/usuarios/gestionusuario}">Gestionar Usuario</a></li>
+                        <li sec:authorize="isAuthenticated()"><a th:href="@{/usuarios/logout}" >Cerrar Sesión</a></li>
+                    </ul>
+                </li>
             </ul>
         </nav>
 
@@ -47,7 +55,7 @@
                 <label>Fecha: </label>
                 <input type="date" name="fecha" th:value="${fechaSeleccionada}" required class="input"/>
                 <button type="submit" class="boton">Mostrar horas</button>
-            </form><br>
+            </form>
 
             <form th:if="${fechaSeleccionada!=null}" th:action="@{/citas/reservarcita}" th:object="${cita}" method="post">
                 <input type="hidden" th:field="*{fecha}" required />
@@ -55,7 +63,7 @@
                 <select th:field="*{horaInicio}" required class="input">
                     <option value="">Selecciona una hora</option>
                     <option th:each="hora:${horasDisponibles}" th:value="${hora}" th:text="${hora}" ></option>
-                </select><br>
+                </select>
                 <label>Servicio: </label>
                 <select th:field="*{servicio.id}" required class="input">
                     <option value="0">Selecciona un servicio</option>

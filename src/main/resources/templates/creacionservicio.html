@@ -20,8 +20,12 @@
                 </li>
                 <li><a href="#">Nosotros</a></li>
                 <li><a href="#">Contacto</a></li>
-                <li class="usuario" sec:authorize="isAuthenticated()"><a th:href="@{/usuarios/logout}" >Cerrar Sesión</a></li>
-                <li class="usuario" sec:authorize="isAuthenticated()"><span sec:authentication="name"></span></li>
+                <li class="usuario" sec:authorize="isAuthenticated()"><span sec:authentication="principal.nombre"></span>
+                    <ul class="desplegable">
+                        <li sec:authorize="isAuthenticated()"><a th:href="@{/usuarios/gestionusuario}">Gestionar Usuario</a></li>
+                        <li sec:authorize="isAuthenticated()"><a th:href="@{/usuarios/logout}" >Cerrar Sesión</a></li>
+                    </ul>
+                </li>
             </ul>
 
             <ul sec:authorize="hasRole('CLIENTE')">
@@ -36,8 +40,12 @@
                 <li class="submenu"><a th:href="@{/servicios/verservicios}">Servicios</a></li>
                 <li><a href="#">Nosotros</a></li>
                 <li><a href="#">Contacto</a></li>
-                <li class="usuario" sec:authorize="isAuthenticated()"><a th:href="@{/usuarios/logout}" >Cerrar Sesión</a></li>
-                <li class="usuario" sec:authorize="isAuthenticated()"><span sec:authentication="name"></span></li>
+                <li class="usuario" sec:authorize="isAuthenticated()"><span sec:authentication="principal.nombre"></span>
+                    <ul class="desplegable">
+                        <li sec:authorize="isAuthenticated()"><a th:href="@{/usuarios/gestionusuario}">Gestionar Usuario</a></li>
+                        <li sec:authorize="isAuthenticated()"><a th:href="@{/usuarios/logout}" >Cerrar Sesión</a></li>
+                    </ul>
+                </li>
             </ul>
         </nav>
         
@@ -45,7 +53,7 @@
             <h2>Formulario creación de servicios</h2>
             <form th:action="@{/servicios/crearservicio}" th:object="${servicio}" method="post">
                 <label>Nombre:<br><input type="text" th:field="*{nombre}" class="input"/></label>
-                <label>Precio:<br> <input type="number" th:field="*{precio}" step="0.01" class="input"/></label><br>
+                <label>Precio:<br> <input type="number" th:field="*{precio}" step="0.01" class="input"/></label>
                 <label><input type="submit" value="Añadir Servicio" class="boton"/></label>
             </form>
             <p th:if="${error}" th:text="${error}"></p>

@@ -3,6 +3,7 @@
     xmlns:th="http://www.thymeleaf.org"
     xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta charset="UTF-8">
         <title>Principal</title>
         <link rel="stylesheet" th:href="@{/estilos.css}"/>
@@ -22,8 +23,12 @@
                 </li>
                 <li><a href="#">Nosotros</a></li>
                 <li><a href="#">Contacto</a></li>
-                <li class="usuario" sec:authorize="isAuthenticated()"><a th:href="@{/usuarios/logout}" >Cerrar Sesión</a></li>
-                <li class="usuario" sec:authorize="isAuthenticated()"><span sec:authentication="name"></span></li>
+                <li class="usuario" sec:authorize="isAuthenticated()"><span sec:authentication="principal.nombre"></span>
+                    <ul class="desplegable">
+                        <li sec:authorize="isAuthenticated()"><a th:href="@{/usuarios/gestionusuario}">Gestionar Usuario</a></li>
+                        <li sec:authorize="isAuthenticated()"><a th:href="@{/usuarios/logout}" >Cerrar Sesión</a></li>
+                    </ul>
+                </li>
             </ul>
 
             <ul sec:authorize="hasRole('CLIENTE')">
@@ -38,8 +43,12 @@
                 <li class="submenu"><a th:href="@{/servicios/verservicios}">Servicios</a></li>
                 <li><a href="#">Nosotros</a></li>
                 <li><a href="#">Contacto</a></li>
-                <li class="usuario" sec:authorize="isAuthenticated()"><a th:href="@{/usuarios/logout}" >Cerrar Sesión</a></li>
-                <li class="usuario" sec:authorize="isAuthenticated()"><span sec:authentication="name"></span></li>
+                <li class="usuario" sec:authorize="isAuthenticated()"><span sec:authentication="principal.nombre"></span>
+                    <ul class="desplegable">
+                        <li sec:authorize="isAuthenticated()"><a th:href="@{/usuarios/gestionusuario}">Gestionar Usuario</a></li>
+                        <li sec:authorize="isAuthenticated()"><a th:href="@{/usuarios/logout}" >Cerrar Sesión</a></li>
+                    </ul>
+                </li>
             </ul>
         </nav>
         <div sec:authorize="hasRole('ADMIN')">
@@ -50,7 +59,6 @@
         <div sec:authorize="hasRole('CLIENTE')">
             <a th:href="@{/citas/gestionarcita}"><button class="btn_menu">Gestionar Cita</button></a><br>
             <a th:href="@{/servicios/verservicios}"><button class="btn_menu">Ver Servicios</button></a><br>
-            <a th:href="@{/usuarios/actualizarusuario}"><button class="btn_menu">Actualizar Usuario</button></a><br>
         </div>
     </body>
 </html>
