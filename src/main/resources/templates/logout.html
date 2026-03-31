@@ -7,12 +7,12 @@
     </head>
     <body>
         <div>
-            <h1>Cerrar Sesión</h1>
+            <h1>Cerrar Sesión</h1><br>
             <form th:action="@{/logout}" method="post">
                 <input type="submit" name="logout"  value="Cerrar Sesión" class="boton">
+                <a th:href="@{/usuarios/principal}" class="boton">Cancelar</a>
             </form><br>
 
-            <a th:href="@{/usuarios/principal}" class="boton">Cancelar</a>
 
         </div>
     </body>

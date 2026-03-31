@@ -12,10 +12,10 @@
                 <input type="email" name="email" placeholder="Email" class="input">
                 <input type="password" name="password" placeholder="Contraseña" class="input">
                 <input type="submit" name="login"  value="Acceder" class="boton">
+                <p th:if="${param.error}">Email o contraseña incorrecta</p>
+                <p>* Crea tu usuario si no tienes cuenta</p>
+                <a th:href="@{/usuarios/crearusuario}" class="boton">Crear Usuario</a>
             </form>
-            <p th:if="${param.error}">Email o contraseña incorrecta</p>
-            <p>* Crea tu usuario si no tienes cuenta</p>
-            <a th:href="@{/usuarios/crearusuario}"><button class="boton" style="width: 35vh;">Crear Usuario</button></a>
         </div>
     </body>
 </html>

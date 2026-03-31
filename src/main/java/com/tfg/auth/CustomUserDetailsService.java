@@ -24,10 +24,6 @@ public class CustomUserDetailsService implements UserDetailsService{
                 .findFirst()
                 .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
 
-        return User.builder()
-                .username(usuario.getEmail())
-                .password(usuario.getPassword())
-                .roles(usuario.getRol().name()) 
-                .build();
+        return new CustomUserDetails(usuario);
     }
 }

@@ -35,7 +35,6 @@ public class UsuarioServiceImpl implements UsuarioService{
 
 	@Override
 	public List<Usuario> listarUsuarios() {
-		// TODO Auto-generated method stub
 		return usuarioRepository.findAll();
 	}
 
@@ -80,11 +79,12 @@ public class UsuarioServiceImpl implements UsuarioService{
 
 	@Override
 	public Usuario actualizarUsuario(Usuario usuario) {
-		if(!usuarioRepository.existsById(usuario.getId())) {
-			throw new RuntimeException("Usuario no encontrado");
-		}
+		Usuario usuarioBuscado=usuarioRepository.findById(usuario.getId()).orElseThrow(()-> new RuntimeException("Usuario no encontrado"));
 		
-		return usuarioRepository.save(usuario);
+		usuarioBuscado.setNombre(usuario.getNombre());
+		usuarioBuscado.setApellido(usuario.getApellido());
+		usuarioBuscado.setEmail(usuario.getEmail());
+		return usuarioRepository.save(usuarioBuscado);
 	}
 	
 	@Override

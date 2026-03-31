@@ -1,22 +1,15 @@
 package com.tfg.configuration;
 
-import java.util.List;
-import java.util.Optional;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.tfg.entity.Usuario;
+import com.tfg.auth.CustomUserDetailsService;
 import com.tfg.repository.UsuarioRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -32,8 +25,8 @@ public class ApplicationConfig {
         return config.getAuthenticationManager();
     }
     @Bean
-    public AuthenticationProvider authenticationProvider(){
-        DaoAuthenticationProvider authenticationProvider=new DaoAuthenticationProvider(userDetailsService());
+    public AuthenticationProvider authenticationProvider(CustomUserDetailsService userDetailsService){
+        DaoAuthenticationProvider authenticationProvider=new DaoAuthenticationProvider(userDetailsService);
         authenticationProvider.setPasswordEncoder(passwordEncoder());
         return authenticationProvider;
     }
@@ -44,7 +37,7 @@ public class ApplicationConfig {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
+    /*@Bean
     public UserDetailsService userDetailsService(){
         return new UserDetailsService() {
             @Override public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException{
@@ -60,5 +53,5 @@ public class ApplicationConfig {
                         .build();
             }
         };
-    }
+    }*/
 }

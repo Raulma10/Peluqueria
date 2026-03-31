@@ -1,10 +1,14 @@
 package com.tfg.controller;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.tfg.auth.CustomUserDetails;
 import com.tfg.entity.Cita;
 import com.tfg.entity.Rol;
 import com.tfg.entity.Usuario;
@@ -98,6 +103,44 @@ public class UsuarioController {
 		usuarioService.borrarUsuario(id);
 		return "redirect:/usuarios/borrarusuario";
 	}
+
+	@GetMapping("/gestionusuario")
+	public String mostrarGestion(@RequestParam(required=false) String nombre, @RequestParam(required=false) String apellido, @RequestParam(required=false) String correo, Model model, Principal principal){
+		Usuario usuarioLogueado= usuarioService.buscarPorMail(principal.getName())
+				.orElseThrow(()->new RuntimeException("Usuario no encontrado"));
+				model.addAttribute("usuarioLogueado",usuarioLogueado);
+		
+		System.out.println(principal.getName());
+		return "gestionusuario";
+	}
+
+	@PostMapping("/gestionusuario")
+	public String gestionarUsuario(@ModelAttribute Usuario usuario, @RequestParam String accion, Model model, Principal principal){
+		
+		try{
+			if("Guardar Cambios".equalsIgnoreCase(accion)){
+				Usuario usuarioActualizado = usuarioService.actualizarUsuario(usuario);
+				Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            CustomUserDetails userDetails = new CustomUserDetails(usuarioActualizado);
+            Authentication newAuth = new UsernamePasswordAuthenticationToken(
+                    userDetails,
+                    authentication.getCredentials(),
+                    userDetails.getAuthorities()
+            );
+            SecurityContextHolder.getContext().setAuthentication(newAuth);
+				return "redirect:/usuarios/principal";
+			}else if("Borrar Usuario".equalsIgnoreCase(accion)){
+				usuarioService.borrarUsuario(usuario.getId());
+				return "redirect:/logout";
+			}
+		}catch(RuntimeException e){
+			model.addAttribute("error", e.getMessage());
+			return "redirect:/logout";
+		}
+		return "redirect:/logout";
+	}
+
+	
 	
 	
 	//ACCESO A LA PANTALLA DE INICIO DE SESION

@@ -23,7 +23,7 @@ public class SecurityConfig {
                     .csrf(csrf->csrf.disable())
                     .authorizeHttpRequests(authRequest -> authRequest
                             .requestMatchers("/usuarios/login").permitAll()
-                            .requestMatchers("/css/**","/js/**","/images/**","/estilos.css").permitAll()
+                            .requestMatchers("/css/**","/js/**","/imgs/**","/estilos.css").permitAll()
                             .requestMatchers("/usuarios/crearusuario").permitAll()
                             .requestMatchers("/usuarios/cerrarsesion").authenticated()
                             .requestMatchers("/usuarios/borrarusuario").hasRole("ADMIN")
