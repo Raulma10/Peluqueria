@@ -130,4 +130,6 @@ public class CitaServiceImpl implements CitaService{
     public boolean existeCita(LocalDate fecha, LocalTime horaInicio) {
         return citaRepository.existsByFechaAndHoraInicio(fecha, horaInicio);
     }
+
+    
 }

@@ -75,15 +75,21 @@
                         </td>
                     </tr>
                 </tbody>
-            </table><br>
+            </table>
             <form  th:if="${servicioSeleccionado!=null}" th:action="@{/servicios/actualizarservicio}" th:object="${servicioSeleccionado}" method="post">
+                <h5 style="color: rgba(0, 0, 0, 0);">--------------------------------------------------------------------</h5>
                 <input type="hidden" th:field="*{id}"/>
-                <label>Nombre:<br><input type="text" th:field="*{nombre}" class="input"/></label>
-                <label>Precio:<br> <input type="number" th:field="*{precio}" step="0.01" class="input"/></label>
-                <label><input type="submit" value="Guardar Cambios" class="boton"/></label>
+                Nombre:<br><input type="text" th:field="*{nombre}" class="input"/>
+                Precio:<br> <input type="number" th:field="*{precio}" step="0.01" class="input"/>
+                <input type="submit" value="Guardar Cambios" class="boton" th:onclick="return actualizacionExitosa();"/>
             </form>
             <p th:if="${error}" th:text="${error}"></p>
-
         </div>
     </body>
+    <script>
+        function actualizacionExitosa(){
+            alert("Servicio actualizado correctamente");
+            return true;
+        }
+    </script>
 </html>

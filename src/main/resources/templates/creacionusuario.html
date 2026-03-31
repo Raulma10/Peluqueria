@@ -7,16 +7,23 @@
     </head>
     <body>
         <div>
-            <h2>Formulario creación de usuario</h2>
             <form th:action="@{/usuarios/crearusuario}" th:object="${usuario}" method="post">
-                <label>Nombre:<br> <input type="text" th:field="*{nombre}" class="input"/></label>
-                <label>Apellido:<br> <input type="text" th:field="*{apellido}" class="input"/></label>
-                <label>Email:<br> <input type="email" th:field="*{email}" class="input"/></label>
-                <label>Contraseña:<br> <input type="password" th:field="*{password}" class="input"/></label>
-                <input type="submit" value="Crear Usuario" class="boton"/>
+                <h2>Formulario creación de usuario</h2>
+                Nombre:<br> <input type="text" th:field="*{nombre}" class="input" placeholder="Introduce tu nombre"/>
+                Apellido:<br> <input type="text" th:field="*{apellido}" class="input" placeholder="Introduce tu apellido"/>
+                Email:<br> <input type="email" th:field="*{email}" class="input" placeholder="Introduce tu email"/>
+                Contraseña:<br> <input type="password" th:field="*{password}" class="input" placeholder="Introduce una contraseña"/>
+                <br>
+                <input type="submit" value="Crear Usuario" class="boton" th:onclick="return guardadoExitoso();"/>
                 <a th:href="@{/usuarios/login}" class="boton">Volver</a>
             </form>
             <p th:if="${error}" th:text="${error}"></p>
         </div>
     </body>
+    <script>
+        function guardadoExitoso(){
+            alert("Usuario creado correctamente");
+            return true;
+        }
+    </script>
 </html>

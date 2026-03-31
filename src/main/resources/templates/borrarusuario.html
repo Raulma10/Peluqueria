@@ -50,8 +50,8 @@
         </nav>
 
         <div>
-            <h2>Lista de usuarios</h2>
             <form th:action="@{/usuarios/borrarusuario}" method="get">
+                <h1>Lista de usuarios</h1>
                 <label>Nombre:</label>
                 <input type="text" name="nombre" th:value="${nombreClienteBuscado}" placeholder="Introduce Nombre" class="input"/>
                 <label>Apellido:</label>
@@ -81,13 +81,23 @@
                         <td>
                             <form th:action="@{/usuarios/borrarusuario}" method="post">
                                 <input type="hidden" name="id" th:value="${usuario.id}"/>
-                                <input type="submit" value="Borrar" class="boton"/>
+                                <input type="submit" value="Borrar" class="boton" th:onclick="return confirmarBorrado();"/>
                             </form>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        
     </body>
+
+    <script>
+        function confirmarBorrado(){
+            if(confirm("¿Quieres borrar el usuario?")){
+                alert("Usuario borrado correctamente");
+                return true;
+            }else{
+                return false;
+            }
+        }
+    </script>
 </html>

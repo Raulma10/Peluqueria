@@ -50,13 +50,19 @@
         </nav>
         
         <div>
-            <h2>Formulario creación de servicios</h2>
             <form th:action="@{/servicios/crearservicio}" th:object="${servicio}" method="post">
-                <label>Nombre:<br><input type="text" th:field="*{nombre}" class="input"/></label>
-                <label>Precio:<br> <input type="number" th:field="*{precio}" step="0.01" class="input"/></label>
-                <label><input type="submit" value="Añadir Servicio" class="boton"/></label>
+                <h2>Formulario creación de servicios</h2>
+                Nombre:<br><input type="text" th:field="*{nombre}" class="input" placeholder="Introduce nombre de servicio"/>
+                Precio:<br> <input type="number" th:field="*{precio}" step="0.01" class="input"/>
+                <input type="submit" value="Añadir Servicio" class="boton" th:onclick="return guardadoExitoso();"/>
             </form>
             <p th:if="${error}" th:text="${error}"></p>
         </div>
     </body>
+    <script>
+        function guardadoExitoso(){
+            alert("Servicio creado correctamente");
+            return true;
+        }
+    </script>
 </html>

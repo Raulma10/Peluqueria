@@ -49,8 +49,8 @@
             </ul>
         </nav>
         <div>
-            <h2>Listado de citas</h2>
             <form th:action="@{/citas/borrarcita}" method="get">
+                <h1>Listado de citas</h1>
                 <label>Cliente:</label>
                 <input type="text" name="nombreCliente" th:value="${clienteBuscado}" placeholder="Introduce Nombre" class="input"/>
 
@@ -62,6 +62,7 @@
             <br>
             <table th:if="${citas!=null && !citas.isEmpty()}">
                 <thead>
+                    <h3>Próximas Citas</h3>
                     <tr>
                     <th>ID</th>
                     <th>Fecha</th>
@@ -74,7 +75,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="cita:${citas}">
+                <tr th:each="cita:${citas}" th:if="${!cita.fecha.isBefore(T(java.time.LocalDate).now())}">
                     <td><span th:text="${cita.id}"></span></td>
                     <td><span th:text="${cita.fecha}"></span></td>
                     <td><span th:text="${cita.horaInicio}"></span></td>
@@ -83,16 +84,50 @@
                     <td><span th:text="${cita.servicio.nombre}"></span></td>
                     <td><span th:text="${#numbers.formatDecimal(cita.servicio.precio,1,2)} + ' €'"></span></td>
                     <td>
-                        <form th:action="@{/citas/borrarcita}" method="post">
+                        <form  th:action="@{/citas/borrarcita}" method="post">
                             <input type="hidden" name="id" th:value="${cita.id}"/>
-                            <input type="submit" value="Borrar" class="boton"/>
+                            <input type="submit" value="Cancelar cita" class="boton" th:onclick="return confirmarCancelacion();"/>
                         </form>
                     </td>
                 </tr>
             </tbody>
         </table>
+        <br>
+            <table th:if="${citas!=null && !citas.isEmpty()}">
+                <thead>
+                    <h3>Citas Pasadas</h3>
+                    <tr>
+                    <th>ID</th>
+                    <th>Fecha</th>
+                    <th>Hora Inicio</th>
+                    <th>Hora Final</th>
+                    <th>Cliente</th>
+                    <th>Servicio</th>
+                    <th>Pago</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="cita:${citas}" th:if="${cita.fecha.isBefore(T(java.time.LocalDate).now())}">
+                    <td><span th:text="${cita.id}"></span></td>
+                    <td><span th:text="${cita.fecha}"></span></td>
+                    <td><span th:text="${cita.horaInicio}"></span></td>
+                    <td><span th:text="${cita.horaFinal}"></span></td>
+                    <td><span th:text="${cita.cliente.nombre+' '+cita.cliente.apellido}"></span></td>
+                    <td><span th:text="${cita.servicio.nombre}"></span></td>
+                    <td><span th:text="${#numbers.formatDecimal(cita.servicio.precio,1,2)} + ' €'"></span></td>
+                </tr>
+            </tbody>
+        </table>
         </div>
-
-        
     </body>
+    <script>
+        function confirmarCancelacion(){
+            if(confirm("¿Quieres cancelar la reserva?")){
+                alert("Cita cancelada correctamente");
+                return true;
+            }else{
+                return false;
+            }
+        }
+    </script>
 </html>

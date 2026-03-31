@@ -104,7 +104,7 @@ public class CitaController {
                 List<Cita> citasCliente=citaService.listarPorCliente(cliente);
                 for(Cita cita : citasCliente){
                     if(fecha==null||cita.getFecha().equals(fecha)){
-                        citas.add(cita);
+                            citas.add(cita);
                     }
                 }
             }

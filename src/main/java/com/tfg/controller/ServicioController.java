@@ -1,7 +1,10 @@
 package com.tfg.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,8 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.tfg.entity.Cita;
 import com.tfg.entity.Servicio;
 import com.tfg.service.ServicioService;
+import com.tfg.service.impl.CitaServiceImpl;
 
 
 
@@ -22,6 +27,10 @@ public class ServicioController {
 	@Autowired
 	@Qualifier("ServicioServiceImpl")
 	private ServicioService servicioService;
+	@Autowired
+	@Qualifier("CitaServiceImpl")
+	@Lazy
+	private CitaServiceImpl citaService;
 	
 	//ACCESO AL FORMULARIO PARA CREAR UN SERVICIO
 	@GetMapping("/crearservicio")
@@ -74,6 +83,13 @@ public class ServicioController {
 	
 	@PostMapping("/borrarservicio")
 	public String borrarServicio(@RequestParam int id) {
+		Servicio servicio=servicioService.buscarPorId(id);
+		List<Cita>citas=citaService.listarPorServicio(servicio);
+		for (Cita cita : citas) {
+			if(cita.getServicio().getId()==id){
+				citaService.borrarCita(cita.getId());
+			}
+		}
 		servicioService.borrarServicio(id);
 		return "redirect:/servicios/borrarservicio";
 	} 
