@@ -50,19 +50,34 @@
         </nav>
         
         <div>
-            <h2>Formulario gestión de usuario</h2>
             
-           
+            
             <form  th:if="${usuarioLogueado!=null}" th:action="@{/usuarios/gestionusuario}" th:object="${usuarioLogueado}" method="post">
+                <h2>Formulario gestión de usuario</h2>
                 <input type="hidden" th:field="*{id}"/>
-                <label>Nombre:<br><input type="text" th:field="*{nombre}" class="input"/></label>
-                <label>Apellido:<br> <input type="text" th:field="*{apellido}"  class="input"/></label><br>
-                <input type="hidden" th:field="*{email}"/>
-                <input type="submit" name="accion" value="Guardar Cambios" class="boton"/>
-                <input type="submit" name="accion" value="Borrar Usuario" class="boton"/>
+                Nombre:<br><input type="text" th:field="*{nombre}" class="input"/>
+                Apellido:<br> <input type="text" th:field="*{apellido}"  class="input"/>
+                <input type="hidden" th:field="*{email}"/><br>
+                <input type="submit" name="accion" value="Guardar Cambios" class="boton" th:onclick="return guardadoExitoso();"/>
+                <input type="submit" name="accion" value="Borrar Usuario" class="boton" th:onclick="return confirmarBorrado();"/>
             </form>
             <p th:if="${error}" th:text="${error}"></p>
 
         </div>
     </body>
+    <script>
+        function confirmarBorrado(){
+            if(confirm("¿Quieres borrar la cuenta?")){
+                alert("Cuenta borrada correctamente");
+                return true;
+            }else{
+                return false;
+            }
+        }
+
+        function guardadoExitoso(){
+            alert("Actualizado correctamente");
+            return true;
+        }
+    </script>
 </html>

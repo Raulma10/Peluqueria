@@ -143,14 +143,8 @@ public class UsuarioController {
 	
 	
 	
-	//ACCESO A LA PANTALLA DE INICIO DE SESION
-	@GetMapping("/login")
-	public String mostrarLogin() {
-		return "login";
-	}
+	
 
-	
-	
 	@GetMapping("/logout")
 	public String mostrarLogout() {
 		return "logout";

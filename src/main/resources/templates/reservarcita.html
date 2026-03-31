@@ -50,32 +50,37 @@
         </nav>
 
         <div>
-            <h2>Formulario de reserva</h2>
             <form th:action="@{/citas/reservarcita}" method="get">
-                <label>Fecha: </label>
+                <h2>Formulario de reserva</h2>
+                Fecha:
                 <input type="date" name="fecha" th:value="${fechaSeleccionada}" required class="input"/>
                 <button type="submit" class="boton">Mostrar horas</button>
             </form>
-
             <form th:if="${fechaSeleccionada!=null}" th:action="@{/citas/reservarcita}" th:object="${cita}" method="post">
-                <input type="hidden" th:field="*{fecha}" required />
+                <h5 style="color: rgba(0, 0, 0, 0);">----------------------------------------------</h5>
+                <input type="hidden" th:field="*{fecha}" required /> 
                 <label>Hora: </label>
-                <select th:field="*{horaInicio}" required class="input">
-                    <option value="">Selecciona una hora</option>
-                    <option th:each="hora:${horasDisponibles}" th:value="${hora}" th:text="${hora}" ></option>
-                </select>
-                <label>Servicio: </label>
-                <select th:field="*{servicio.id}" required class="input">
-                    <option value="0">Selecciona un servicio</option>
-                    <option th:each="servicio:${servicios}" th:value="${servicio.id}" th:text="${servicio.nombre} + ' -- ' + ${#numbers.formatDecimal(servicio.precio,1,2)} + ' €'"></option>
-                </select>
-                
-                <input type="hidden" th:field="*{cliente.id}" th:value="${cita.cliente.id}"/>
-                <p>Cliente: <span th:text="${cita.cliente.nombre}"></span></p>
-                <p th:if="${error!=null}" th:text="${error}"></p>
-                <button type="submit" class="boton">Reservar</button>
-
+                    <select th:field="*{horaInicio}" required class="input">
+                        <option value="">Selecciona una hora</option>
+                        <option th:each="hora:${horasDisponibles}" th:value="${hora}" th:text="${hora}" ></option>
+                    </select>
+                    <label>Servicio: </label>
+                    <select th:field="*{servicio.id}" required class="input">
+                        <option value="0">Selecciona un servicio</option>
+                        <option th:each="servicio:${servicios}" th:value="${servicio.id}" th:text="${servicio.nombre} + ' -- ' + ${#numbers.formatDecimal(servicio.precio,1,2)} + ' €'"></option>
+                    </select>
+                    
+                    <input type="hidden" th:field="*{cliente.id}" th:value="${cita.cliente.id}"/>
+                    <p>Cliente: <span th:text="${cita.cliente.nombre}"></span></p><br>
+                    <p th:if="${error!=null}" th:text="${error}"></p>
+                    <button type="submit" class="boton" th:onclick="return reservaExitosa();">Reservar</button>
             </form>
         </div>
     </body>
+    <script>
+        function reservaExitosa(){
+            alert("Cita reservada correctamente");
+            return true;
+        }
+    </script>
 </html>

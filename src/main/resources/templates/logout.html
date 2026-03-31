@@ -7,8 +7,8 @@
     </head>
     <body>
         <div>
-            <h1>Cerrar Sesión</h1><br>
             <form th:action="@{/logout}" method="post">
+                <h1>Cerrar Sesión</h1><br>
                 <input type="submit" name="logout"  value="Cerrar Sesión" class="boton">
                 <a th:href="@{/usuarios/principal}" class="boton">Cancelar</a>
             </form><br>

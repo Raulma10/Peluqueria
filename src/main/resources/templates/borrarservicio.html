@@ -69,7 +69,7 @@
                         <td>
                             <form th:action="@{/servicios/borrarservicio}" method="post">
                                 <input type="hidden" name="id" th:value="${servicio.id}"/>
-                                <input type="submit" value="Borrar" class="boton"/>
+                                <input type="submit" value="Borrar" class="boton" th:onclick="return confirmarBorrado();"/>
                             </form>
                         </td>
                     </tr>
@@ -77,4 +77,14 @@
             </table>
         </div>
     </body>
+    <script>
+        function confirmarBorrado(){
+            if(confirm("¿Quieres borrar el servicio?")){
+                alert("Servicio borrado correctamente");
+                return true;
+            }else{
+                return false;
+            }
+        }
+    </script>
 </html>

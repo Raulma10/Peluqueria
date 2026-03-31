@@ -22,7 +22,7 @@ public class SecurityConfig {
          http
                     .csrf(csrf->csrf.disable())
                     .authorizeHttpRequests(authRequest -> authRequest
-                            .requestMatchers("/usuarios/login").permitAll()
+                            .requestMatchers("/login").permitAll()
                             .requestMatchers("/css/**","/js/**","/imgs/**","/estilos.css").permitAll()
                             .requestMatchers("/usuarios/crearusuario").permitAll()
                             .requestMatchers("/usuarios/cerrarsesion").authenticated()
@@ -38,17 +38,17 @@ public class SecurityConfig {
                             .requestMatchers("/servicios/verservicios").permitAll()
                             .anyRequest().authenticated())
                     .formLogin(form->form
-                        .loginPage("/usuarios/login")
+                        .loginPage("/login")
                         .loginProcessingUrl("/login")
                         .usernameParameter("email")
                         .passwordParameter("password")
                         .defaultSuccessUrl("/usuarios/principal",true)
-                        .failureUrl("/usuarios/login?error")
+                        .failureUrl("/login?error")
 
                     )
                     .logout(logout->logout
                         .logoutUrl("/logout")
-                        .logoutSuccessUrl("/usuarios/login?logout")
+                        .logoutSuccessUrl("/login")
                         .permitAll()
                     )
 
