@@ -36,7 +36,6 @@ public class CustomUserDetails implements UserDetails{
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // TODO Auto-generated method stub
         return List.of(new SimpleGrantedAuthority("ROLE_"+usuario.getRol().name()));
     }
 
