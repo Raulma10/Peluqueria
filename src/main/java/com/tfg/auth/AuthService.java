@@ -16,10 +16,10 @@ public class AuthService {
     private final UsuarioRepository usuarioRepository;
     private final PasswordEncoder passwordEncoder;
 
-
-    
-
     public Usuario register(String nombre, String apellido, String email, String password){
+        if(usuarioRepository.existsByEmail(email)){
+            throw new RuntimeException("El email ya está registrado");
+        }
         Usuario usuario=Usuario.builder()
         .nombre(nombre)
         .apellido(apellido)
