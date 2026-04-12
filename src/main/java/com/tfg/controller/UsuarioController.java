@@ -37,34 +37,38 @@ public class UsuarioController {
 	@Qualifier("CitaServiceImpl")
 	private CitaService citaService;
 	
-	//ACCESO A FORMULARIO PARA CREACION DE USUARIO
 	@GetMapping("/crearusuario")
 	public String mostrarFormulario(Model model) {
 		model.addAttribute("usuarios",usuarioService.listarUsuarios());
 		model.addAttribute("usuario",new Usuario());
+		
 		return "creacionusuario";
 	}
+
 	@PostMapping("/crearusuario")
-	public String guardarUsuario(@ModelAttribute Usuario usuario, Model model) {
+	public String guardarUsuario(@ModelAttribute Usuario usuario, Model model, Authentication auth) {
 		try{
-			
 			usuarioService.crearUsuario(usuario);
-			return "redirect:/usuarios/login";
+			boolean esAdmin = auth != null &&
+                auth.getAuthorities().stream()
+                        .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+			if (esAdmin) {
+				return "redirect:/usuarios/principal";
+			}
+			return "redirect:/login";
 		}catch(RuntimeException e){
 			model.addAttribute("error",e.getMessage());
 			return "creacionusuario";
 		}
 	}
 
-	//ACCESO AL FORMULARIO PARA BORRAR USUARIOS
-	//A ESTE FORMULARIO SOLO TENDRA ACCESO EL ADMIN
 	@GetMapping("/borrarusuario")
 	public String mostrarForm(@RequestParam(required=false) String nombre, @RequestParam(required=false) String apellido, @RequestParam(required=false) String correo, Model model) {
 		List<Usuario>listaUsuarios=usuarioService.listarUsuarios();
 		List<Usuario>usuariosFiltrados=new ArrayList<>();
 
 		for(Usuario usuario:listaUsuarios){
-			if(usuario.getRol()==Rol.ADMIN) continue;
+			if(usuario.getRol()==Rol.ADMIN && usuario.getEmail().equals("admin@admin.com")) continue;
 			boolean coincide=true;
 
 			if(nombre!=null && !nombre.isEmpty()){
@@ -121,8 +125,8 @@ public class UsuarioController {
 			if("Guardar Cambios".equalsIgnoreCase(accion)){
 				Usuario usuarioActualizado = usuarioService.actualizarUsuario(usuario);
 				Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            CustomUserDetails userDetails = new CustomUserDetails(usuarioActualizado);
-            Authentication newAuth = new UsernamePasswordAuthenticationToken(
+            	CustomUserDetails userDetails = new CustomUserDetails(usuarioActualizado);
+            	Authentication newAuth = new UsernamePasswordAuthenticationToken(
                     userDetails,
                     authentication.getCredentials(),
                     userDetails.getAuthorities()
@@ -140,17 +144,16 @@ public class UsuarioController {
 		return "redirect:/logout";
 	}
 
-	
-	
-	
-	
+	@GetMapping("/gestionarusuarios")
+	public String mostrarGestionar(){
+		return "menugestionusuarios";
+	}
 
 	@GetMapping("/logout")
 	public String mostrarLogout() {
 		return "logout";
 	}
 
-	//MOSTRAR PAGINA PRINCIPAL
 	@GetMapping("/principal")
 	public String mostrarPrincipal(){
 		return "principal";

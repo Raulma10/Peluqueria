@@ -32,7 +32,6 @@ public class ServicioController {
 	@Lazy
 	private CitaServiceImpl citaService;
 	
-	//ACCESO AL FORMULARIO PARA CREAR UN SERVICIO
 	@GetMapping("/crearservicio")
 	public String mostrarFormulario(Model model) {
 		model.addAttribute("servicios",servicioService.listarServicios());
@@ -50,7 +49,6 @@ public class ServicioController {
 		}
 	}
 
-	//FORMULARIO PARA ACRTUALIZAR SERVICIO
 	@GetMapping("/actualizarservicio")
 	public String mostrarServicios(@RequestParam(value="idServicioSeleccionado", required = false) Integer idServicioSeleccionado,Model model){
 		model.addAttribute("servicios",servicioService.listarServicios());
@@ -74,7 +72,6 @@ public class ServicioController {
 		return "redirect:/servicios/actualizarservicio";
 	}
 	
-	//ACCESO AL FORMULARIO PARA BORRAR SERVICIO
 	@GetMapping("/borrarservicio")
 	public String mostrarForm(Model model) {
 		model.addAttribute("servicios",servicioService.listarServicios());
@@ -94,7 +91,6 @@ public class ServicioController {
 		return "redirect:/servicios/borrarservicio";
 	} 
 	
-	//ACCESO A LISTA DE SERVICIOS
 	@GetMapping("/verservicios")
 	public String verServicios(Model model) {
 		model.addAttribute("servicios",servicioService.listarServicios());

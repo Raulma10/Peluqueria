@@ -12,7 +12,12 @@
         <nav>
             <ul sec:authorize="hasRole('ADMIN')">
                 <li><a th:href="@{/usuarios/principal}">Inicio</a></li>
-                <li class="submenu"><a th:href="@{/usuarios/borrarusuario}">Usuarios</a></li>
+                <li class="submenu"><a th:href="@{/usuarios/gestionarusuarios}">Usuarios</a>
+                    <ul class="desplegable">
+                        <li><a th:href="@{/usuarios/crearusuario}">Crear Usuario</a></li>
+                        <li><a th:href="@{/usuarios/borrarusuario}">Borrar Usuario</a></li>
+                    </ul>
+                </li>
                 <li><a th:href="@{/citas/borrarcita}">Citas</a></li>
                 <li class="submenu"><a th:href="@{/servicios/gestionarservicios}">Servicios</a>
                     <ul class="desplegable">
@@ -52,7 +57,7 @@
             </ul>
         </nav>
         <div sec:authorize="hasRole('ADMIN')">
-            <a th:href="@{/usuarios/borrarusuario}"><button class="btn_menu">Gestionar Usuarios</button></a><br>
+            <a th:href="@{/usuarios/gestionarusuarios}"><button class="btn_menu">Gestionar Usuarios</button></a><br>
             <a th:href="@{/servicios/gestionarservicios}"><button class="btn_menu">Gestionar Servicios</button></a><br>
             <a th:href="@{/citas/borrarcita}"><button class="btn_menu">Gestionar Citas</button></a><br>
         </div>

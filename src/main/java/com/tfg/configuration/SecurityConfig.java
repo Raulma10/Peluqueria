@@ -27,6 +27,7 @@ public class SecurityConfig {
                             .requestMatchers("/usuarios/crearusuario").permitAll()
                             .requestMatchers("/usuarios/cerrarsesion").authenticated()
                             .requestMatchers("/usuarios/borrarusuario").hasRole("ADMIN")
+                            .requestMatchers("/usuarios/gestionarusuarios").hasRole("ADMIN")
                             .requestMatchers("/citas/gestionarcita").hasRole("CLIENTE")
                             .requestMatchers("/citas/reservarcita").hasRole("CLIENTE")
                             .requestMatchers("/citas/miscitas").hasRole("CLIENTE")
@@ -35,7 +36,7 @@ public class SecurityConfig {
                             .requestMatchers("/servicios/crearservicio").hasRole("ADMIN")
                             .requestMatchers("/servicios/actualizarservicio").hasRole("ADMIN")
                             .requestMatchers("/servicios/borrarservicio").hasRole("ADMIN")
-                            .requestMatchers("/servicios/verservicios").permitAll()
+                            .requestMatchers("/servicios/verservicios").authenticated()
                             .anyRequest().authenticated())
                     .formLogin(form->form
                         .loginPage("/login")
