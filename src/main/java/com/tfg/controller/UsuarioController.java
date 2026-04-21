@@ -134,6 +134,10 @@ public class UsuarioController {
             SecurityContextHolder.getContext().setAuthentication(newAuth);
 				return "redirect:/usuarios/principal";
 			}else if("Borrar Usuario".equalsIgnoreCase(accion)){
+				List<Cita>citas=citaService.listarPorCliente(usuario);
+				for(Cita cita:citas){
+					citaService.borrarCita(cita.getId());
+				}
 				usuarioService.borrarUsuario(usuario.getId());
 				return "redirect:/logout";
 			}

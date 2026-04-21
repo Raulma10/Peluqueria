@@ -31,9 +31,6 @@ public class CitaServiceImpl implements CitaService{
     @Autowired
     @Qualifier("ServicioServiceImpl")
     private ServicioService servicioService;
-
-    
-
     @Override
     public Cita crearCita(Cita cita) {
         Usuario cliente = usuarioService.buscarPorId(cita.getCliente().getId());
@@ -49,7 +46,6 @@ public class CitaServiceImpl implements CitaService{
         }
         return citaRepository.save(cita);
     }
-
     @Override
     public boolean borrarCita(int id) {
         if(citaRepository.existsById(id)){
@@ -58,78 +54,49 @@ public class CitaServiceImpl implements CitaService{
         }
         return false;
     }
-
     @Override
-    public Cita actualizarCita(Cita cita) {
-        return citaRepository.save(cita);
-    }
-
+    public Cita actualizarCita(Cita cita) { return citaRepository.save(cita);}
     @Override
-    public Cita buscarPorId(int id){
-        return citaRepository.findById(id).orElse(null);
-    }
-
+    public Cita buscarPorId(int id){ return citaRepository.findById(id).orElse(null);}
     @Override
-    public List<Cita> listarPorCliente(Usuario cliente) {
-       return citaRepository.findByCliente(cliente);
-    }
-
+    public List<Cita> listarPorCliente(Usuario cliente) {return citaRepository.findByCliente(cliente);}
     @Override
-    public List<Cita> listarPorServicio(Servicio servicio) {
-        return citaRepository.findByServicio(servicio);
-    }
-
+    public List<Cita> listarPorServicio(Servicio servicio) {return citaRepository.findByServicio(servicio);}
     @Override
-    public List<Cita> listarPorFecha(LocalDate fecha) {
-        return citaRepository.findByFecha(fecha);
-    }
-
+    public List<Cita> listarPorFecha(LocalDate fecha) {return citaRepository.findByFecha(fecha);}
     @Override
-    public List<Cita> listarPorClienteAndFecha(Usuario cliente, LocalDate fecha){
-        return citaRepository.findByClienteAndFecha(cliente, fecha);
-    }
+    public List<Cita> listarPorClienteAndFecha(Usuario cliente, LocalDate fecha){return citaRepository.findByClienteAndFecha(cliente, fecha);}
 
     @Override
     public List<LocalTime> obtenerHorasDisponibles(LocalDate fecha) {
-        
         List<LocalTime> horasDisponibles=new ArrayList<>();
         if(fecha.isBefore(LocalDate.now())){
             return horasDisponibles;
         }
-        
         citaRepository.findByFecha(fecha);
         LocalTime inicioJornada=LocalTime.of(9,0);
         LocalTime finJornada=LocalTime.of(18,0);
-
         LocalTime horaActual=inicioJornada;
-
         while (horaActual.isBefore(finJornada)) {
 
             if(fecha.equals(LocalDate.now()) && horaActual.isBefore(LocalTime.now())){
                 horaActual=horaActual.plusHours(1);
                 continue;
             }
-
             boolean ocupada=citaRepository.existsByFechaAndHoraInicio(fecha, horaActual);
-            
             if(!ocupada){
                 horasDisponibles.add(horaActual);
             }
-
             horaActual=horaActual.plusHours(1);
         }
         return horasDisponibles;
     }
-
     @Override
     public List<Cita> listarCitas() {
         return citaRepository.findAll();
     }
-
     @Override
     public boolean existeCita(LocalDate fecha, LocalTime horaInicio) {
         return citaRepository.existsByFechaAndHoraInicio(fecha, horaInicio);
-    }
-
-    
+    } 
 }

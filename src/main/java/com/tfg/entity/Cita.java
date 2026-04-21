@@ -16,28 +16,23 @@ import jakarta.persistence.Table;
 @Table(name="citas")
 public class Cita {
 
-	//ATRIBUTOS
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id", nullable=false)
 	private int id;
-	
 	@Column(nullable=false)
 	private LocalDate fecha;
 	@Column(nullable=false)
 	private LocalTime horaInicio;
 	@Column(nullable=false)
 	private LocalTime horaFinal;
-	
 	@ManyToOne
 	@JoinColumn(name="idUsuario", nullable=false)
 	private Usuario cliente;
-	
 	@ManyToOne
 	@JoinColumn(name="idServicio", nullable=false)
 	private Servicio servicio;
 	
-	//CONSTRUCTORES
 	public Cita(LocalDate fecha, LocalTime horaInicio, Usuario cliente, Servicio servicio) {
 		super();
 		this.fecha=fecha;
@@ -45,55 +40,18 @@ public class Cita {
 		this.cliente=cliente;
 		this.servicio=servicio;
 	}
-	
 	public Cita() {}
 
-	//GETTERS Y SETTERS
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public LocalDate getFecha() {
-		return fecha;
-	}
-
-	public void setFecha(LocalDate fecha) {
-		this.fecha = fecha;
-	}
-
-	public LocalTime getHoraInicio() {
-		return horaInicio;
-	}
-
-	public void setHoraInicio(LocalTime horaInicio) {
-		this.horaInicio = horaInicio;
-	}
-
-	public LocalTime getHoraFinal() {
-		return horaFinal;
-	}
-
-	public void setHoraFinal(LocalTime horaFinal) {
-		this.horaFinal = horaFinal;
-	}
-
-	public Usuario getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(Usuario cliente) {
-		this.cliente = cliente;
-	}
-
-	public Servicio getServicio() {
-		return servicio;
-	}
-
-	public void setServicio(Servicio servicio) {
-		this.servicio = servicio;
-	}
+	public int getId() {return id;}
+	public void setId(int id) {this.id = id;}
+	public LocalDate getFecha() {return fecha;}
+	public void setFecha(LocalDate fecha) {this.fecha = fecha;}
+	public LocalTime getHoraInicio() {return horaInicio;}
+	public void setHoraInicio(LocalTime horaInicio) {this.horaInicio = horaInicio;}
+	public LocalTime getHoraFinal() {return horaFinal;}
+	public void setHoraFinal(LocalTime horaFinal) {this.horaFinal = horaFinal;}
+	public Usuario getCliente() {return cliente;}
+	public void setCliente(Usuario cliente) {this.cliente = cliente;}
+	public Servicio getServicio() {return servicio;}
+	public void setServicio(Servicio servicio) {this.servicio = servicio;}
 }

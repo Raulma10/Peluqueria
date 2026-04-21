@@ -32,7 +32,6 @@ import lombok.NoArgsConstructor;
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Usuario  implements UserDetails{
 
-	//ATRIBUTOS
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="idUsuario")
@@ -50,7 +49,6 @@ public class Usuario  implements UserDetails{
 	@Column(nullable=false)
 	private Rol rol;
 
-	//CONSTRUCTORES
 	public Usuario(String nombre, String apellido, String email, String password, Rol rol) {
 		this.nombre=nombre;
 		this.apellido=apellido;
@@ -58,89 +56,29 @@ public class Usuario  implements UserDetails{
 		this.password=password;
 		this.rol=rol;
 	}
-	
 
-
-	//GETTERS Y SETTERS
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	public String getApellido() {
-		return apellido;
-	}
-
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	//DEBERIA AÑADIR UN METODO PARA HACER QUE LA CONTRASEÑA SEA MAS SEGURA
-	//PERO DE MOMENTO NO ME INTERESA PARA PODER HACER PRUEBAS MAS FACILMENTE
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public Rol getRol() {
-		return rol;
-	}
-
-	public void setRol(Rol rol) {
-		this.rol = rol;
-	}
-
+	public int getId() {return id;}
+	public void setId(int id) {this.id = id;}
+	public String getNombre() {return nombre;}
+	public void setNombre(String nombre) {this.nombre = nombre;}
+	public String getApellido() {return apellido;}
+	public void setApellido(String apellido) {this.apellido = apellido;}
+	public String getEmail() {return email;}
+	public void setEmail(String email) {this.email = email;}
+	public String getPassword() {return password;}
+	public void setPassword(String password) {this.password = password;}
+	public Rol getRol() {return rol;}
+	public void setRol(Rol rol) {this.rol = rol;}
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-		return List.of(new SimpleGrantedAuthority(rol.name()));
-	}
-
+    public Collection<? extends GrantedAuthority> getAuthorities() {return List.of(new SimpleGrantedAuthority(rol.name()));}
 	@Override
-	public boolean isAccountNonExpired(){
-		return true;
-	}
-
+	public boolean isAccountNonExpired(){return true;}
 	@Override
-	public boolean isAccountNonLocked(){
-		return true;
-	}
-	
+	public boolean isAccountNonLocked(){return true;}
 	@Override
-	public boolean isCredentialsNonExpired(){
-		return true;
-	}
-
+	public boolean isCredentialsNonExpired(){return true;}
 	@Override
-	public boolean isEnabled(){
-		return true;
-	}
-
+	public boolean isEnabled(){return true;}
     @Override
-    public String getUsername() {
-        return email;
-    }
-	
-
+    public String getUsername() {return email;}
 }
