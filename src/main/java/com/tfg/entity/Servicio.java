@@ -11,7 +11,6 @@ import jakarta.persistence.Table;
 @Table(name="servicios")
 public class Servicio {
 
-	//ATRIBUTOS
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="idServicio")
@@ -21,38 +20,18 @@ public class Servicio {
 	@Column(nullable=false)
 	private double precio;
 
-	//CONSTRUCTORES
 	public Servicio(String nombre, double precio) {
 		super();
 		this.nombre=nombre;
 		this.precio=precio;
 	}
-	
 	public Servicio() {}
 
-	//GETTERS Y SETTERS
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	public double getPrecio() {
-		return precio;
-	}
-
-	public void setPrecio(double precio) {
-		this.precio = precio;
-	}
+	public int getId() {return id;}
+	public void setId(int id) {this.id = id;}
+	public String getNombre() {return nombre;}
+	public void setNombre(String nombre) {this.nombre = nombre;}
+	public double getPrecio() {return precio;}
+	public void setPrecio(double precio) {this.precio = precio;}
 
 }

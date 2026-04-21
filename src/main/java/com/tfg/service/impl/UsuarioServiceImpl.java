@@ -20,10 +20,8 @@ public class UsuarioServiceImpl implements UsuarioService{
 	@Autowired
 	@Qualifier("UsuarioRepository")
 	private  UsuarioRepository  usuarioRepository;
-
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-	
 	@Override
 	public Usuario buscarPorId(int id){
 		Optional<Usuario>usuario=usuarioRepository.findById(id);
@@ -32,7 +30,6 @@ public class UsuarioServiceImpl implements UsuarioService{
 		}
 		return null;
 	}
-
 	@Override
 	public List<Usuario> listarUsuarios() {
 		return usuarioRepository.findAll();
@@ -42,23 +39,19 @@ public class UsuarioServiceImpl implements UsuarioService{
 	public Optional<Usuario> buscarPorNombre(String nombre){
 		return usuarioRepository.findByNombre(nombre);
 	}
-
 	@Override
 	public List<Usuario> buscarPorApellido(String apellido){
 		return usuarioRepository.findByApellido(apellido);
 	}
-
 	@Override
 	public List<Usuario> buscarPorNombreAndApellido(String nombre, String apellido){
 		return usuarioRepository.findByNombreAndApellido(nombre,apellido);
 	}
-
 	@Override
 	public Usuario crearUsuario(Usuario usuario) {
 		if (usuarioRepository.existsByEmail(usuario.getEmail())) {
 			throw new RuntimeException("El email ya está registrado");
 		}
-		
 		if(usuario.getRol()==null) {
 			usuario.setRol(Rol.CLIENTE);
 		}

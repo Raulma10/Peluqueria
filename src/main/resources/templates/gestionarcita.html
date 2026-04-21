@@ -11,7 +11,12 @@
         <nav>
             <ul sec:authorize="hasRole('ADMIN')">
                 <li><a th:href="@{/usuarios/principal}">Inicio</a></li>
-                <li class="submenu"><a th:href="@{/usuarios/borrarusuario}">Usuarios</a></li>
+                <li class="submenu"><a th:href="@{/usuarios/gestionarusuarios}">Usuarios</a>
+                    <ul class="desplegable">
+                        <li><a th:href="@{/usuarios/crearusuario}">Crear Usuario</a></li>
+                        <li><a th:href="@{/usuarios/borrarusuario}">Borrar Usuario</a></li>
+                    </ul>
+                </li>
                 <li><a th:href="@{/citas/borrarcita}">Citas</a></li>
                 <li class="submenu"><a th:href="@{/servicios/gestionarservicios}">Servicios</a>
                     <ul class="desplegable">

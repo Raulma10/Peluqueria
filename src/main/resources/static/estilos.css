@@ -1,11 +1,9 @@
-/* RESET BÁSICO */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* BODY */
 body {
     background-image: url("/imgs/fondo_pantalla.jpg");
     background-size: cover;
@@ -17,7 +15,6 @@ body {
     align-items: center;
 }
 
-/* NAVBAR */
 nav {
     width: 100%;
     background-color: #111111;
@@ -32,7 +29,6 @@ nav ul {
     gap: 25px;
 }
 
-/* LINKS NAV */
 nav ul li a {
     text-decoration: none;
     color: #f5f5f5;
@@ -59,7 +55,6 @@ nav ul li span:hover {
     color: #ffffff;
 }
 
-/* SUBMENÚ */
 nav ul li.submenu {
     position: relative;
 }
@@ -91,14 +86,11 @@ nav ul li.submenu .desplegable li a:hover {
     color: #f8f8f8;
 }
 
-/* USUARIO */
 nav li.usuario {
     margin-left: auto;
     position: relative;
 }
 
-
-/* DESPLEGABLE USUARIO */
 nav ul li.usuario .desplegable {
     display: none;
     position: absolute;
@@ -124,7 +116,6 @@ nav ul li.usuario .desplegable li a:hover {
     color: #f8f8f8;
 }
 
-/* TARJETAS / CONTENIDO */
 div {
     background-color: rgba(28, 28, 28, 0.983);
     margin: 30px;
@@ -140,7 +131,6 @@ div h2{
     padding-bottom: 20px;
 }
 
-/* FORMULARIOS */
 form {
     display: flex;
     flex-direction: column;
@@ -162,7 +152,6 @@ form {
     outline: none;
 }
 
-/* BOTONES */
 .boton, .btn_menu{
     text-decoration: none;
     font-family: 'Segoe UI', Arial, sans-serif;
@@ -188,7 +177,6 @@ form {
     
 }
 
-/* TABLAS */
 table {
     width: 100%;
     border-collapse: collapse;

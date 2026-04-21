@@ -1,15 +1,17 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <head>
-        <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org">
-        <title>Crear Usuario</title>
+        <meta charset="UTF-8">
+        <title>Gestión de Servicios</title>
         <link rel="stylesheet" th:href="@{/estilos.css}"/>
     </head>
     <body>
-         <nav sec:authorize="hasRole('ADMIN')">
-            <ul >
+        <nav>
+            <ul sec:authorize="hasRole('ADMIN')">
                 <li><a th:href="@{/usuarios/principal}">Inicio</a></li>
-                <li class="submenu"><a th:href="@{/usuarios/gestionarusuarios}">Usuarios</a>
+                <li class="submenu"><a th:href="@{/usuarios/menugestionusuarios}">Usuarios</a>
                     <ul class="desplegable">
                         <li><a th:href="@{/usuarios/crearusuario}">Crear Usuario</a></li>
                         <li><a th:href="@{/usuarios/borrarusuario}">Borrar Usuario</a></li>
@@ -33,25 +35,9 @@
                 </li>
             </ul>
         </nav>
-        <div>
-            <form th:action="@{/usuarios/crearusuario}" th:object="${usuario}" method="post">
-                <h2>Formulario creación de usuario</h2>
-                Nombre:<br> <input type="text" th:field="*{nombre}" class="input" placeholder="Introduce tu nombre"/>
-                Apellido:<br> <input type="text" th:field="*{apellido}" class="input" placeholder="Introduce tu apellido"/>
-                Email:<br> <input type="email" th:field="*{email}" class="input" placeholder="Introduce tu email"/>
-                Contraseña:<br> <input type="password" th:field="*{password}" class="input" placeholder="Introduce una contraseña"/>
-                <span sec:authorize="hasRole('ADMIN')">Rol:<br>
-                    <select th:field="*{rol}" class="input" style="width: 100%;">
-                        <option value="CLIENTE">CLIENTE</option>
-                        <option value="ADMIN">ADMIN</option>
-                    </select>
-                </span>
-                <br>
-                <input type="submit" value="Crear Usuario" class="boton"/>
-                <a th:href="@{/usuarios/login}" class="boton">Volver</a>
-            </form>
-            <p th:if="${error}" th:text="${error}"></p>
+        <div sec:authorize="hasRole('ADMIN')">
+            <a th:href="@{/usuarios/crearusuario}"><button class="btn_menu">Crear Usuario</button></a><br>
+            <a th:href="@{/usuarios/borrarusuario}"><button class="btn_menu">Borrar Usuario</button></a><br>
         </div>
     </body>
-    
 </html>

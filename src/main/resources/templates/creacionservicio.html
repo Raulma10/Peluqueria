@@ -9,7 +9,12 @@
         <nav>
             <ul sec:authorize="hasRole('ADMIN')">
                 <li><a th:href="@{/usuarios/principal}">Inicio</a></li>
-                <li class="submenu"><a th:href="@{/usuarios/borrarusuario}">Usuarios</a></li>
+                <li class="submenu"><a th:href="@{/usuarios/gestionarusuarios}">Usuarios</a>
+                    <ul class="desplegable">
+                        <li><a th:href="@{/usuarios/crearusuario}">Crear Usuario</a></li>
+                        <li><a th:href="@{/usuarios/borrarusuario}">Borrar Usuario</a></li>
+                    </ul>
+                </li>
                 <li><a th:href="@{/citas/borrarcita}">Citas</a></li>
                 <li class="submenu"><a th:href="@{/servicios/gestionarservicios}">Servicios</a>
                     <ul class="desplegable">
@@ -54,15 +59,10 @@
                 <h2>Formulario creación de servicios</h2>
                 Nombre:<br><input type="text" th:field="*{nombre}" class="input" placeholder="Introduce nombre de servicio"/>
                 Precio:<br> <input type="number" th:field="*{precio}" step="0.01" class="input"/>
-                <input type="submit" value="Añadir Servicio" class="boton" th:onclick="return guardadoExitoso();"/>
+                <input type="submit" value="Añadir Servicio" class="boton"/>
             </form>
             <p th:if="${error}" th:text="${error}"></p>
         </div>
     </body>
-    <script>
-        function guardadoExitoso(){
-            alert("Servicio creado correctamente");
-            return true;
-        }
-    </script>
+    
 </html>
